@@ -40,7 +40,7 @@ class ViewController: UIViewController {
         if game != nil {
             
             if game!.statusGame() {
-                labelStatus.text = "GANASTE!!!"
+                labelStatus.text = "El jugador \(game!.player.playerName()) GANÓ!!!"
             } else {
                 let movements = game!.dice.rollDice()
                 labelMovements.text = "El jugador \(game!.player.playerName()) debe moverse \(movements) espacios"
@@ -49,6 +49,9 @@ class ViewController: UIViewController {
                 game!.printBoard()
             }
             
+        }
+        else {
+            labelStatus.text = "Empieza el juego para tirar el dado"
         }
     }
     
