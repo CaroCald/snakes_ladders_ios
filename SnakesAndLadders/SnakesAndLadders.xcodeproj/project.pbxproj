@@ -19,6 +19,8 @@
 		8484B1D62A14101E00FD82F8 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8484B1D52A14101E00FD82F8 /* Game.swift */; };
 		8484B1D82A14103400FD82F8 /* Dice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8484B1D72A14103400FD82F8 /* Dice.swift */; };
 		8484B1DA2A14118A00FD82F8 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8484B1D92A14118A00FD82F8 /* Player.swift */; };
+		8496F7712A41F8D300E4BF0A /* Snake.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8496F7702A41F8D300E4BF0A /* Snake.swift */; };
+		8496F7732A41F8DF00E4BF0A /* Ladder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8496F7722A41F8DF00E4BF0A /* Ladder.swift */; };
 		84F862932A1595B200C808E2 /* Board.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F862922A1595B200C808E2 /* Board.swift */; };
 /* End PBXBuildFile section */
 
@@ -56,6 +58,8 @@
 		8484B1D52A14101E00FD82F8 /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
 		8484B1D72A14103400FD82F8 /* Dice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dice.swift; sourceTree = "<group>"; };
 		8484B1D92A14118A00FD82F8 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
+		8496F7702A41F8D300E4BF0A /* Snake.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Snake.swift; sourceTree = "<group>"; };
+		8496F7722A41F8DF00E4BF0A /* Ladder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ladder.swift; sourceTree = "<group>"; };
 		84F862922A1595B200C808E2 /* Board.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Board.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -143,6 +147,8 @@
 				8484B1D72A14103400FD82F8 /* Dice.swift */,
 				8484B1D92A14118A00FD82F8 /* Player.swift */,
 				84F862922A1595B200C808E2 /* Board.swift */,
+				8496F7702A41F8D300E4BF0A /* Snake.swift */,
+				8496F7722A41F8DF00E4BF0A /* Ladder.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -294,9 +300,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8496F7712A41F8D300E4BF0A /* Snake.swift in Sources */,
 				8484B1D62A14101E00FD82F8 /* Game.swift in Sources */,
 				8484B1A62A14070700FD82F8 /* ViewController.swift in Sources */,
 				8484B1A22A14070700FD82F8 /* AppDelegate.swift in Sources */,
+				8496F7732A41F8DF00E4BF0A /* Ladder.swift in Sources */,
 				8484B1D82A14103400FD82F8 /* Dice.swift in Sources */,
 				84F862932A1595B200C808E2 /* Board.swift in Sources */,
 				8484B1DA2A14118A00FD82F8 /* Player.swift in Sources */,

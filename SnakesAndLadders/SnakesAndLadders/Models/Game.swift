@@ -8,13 +8,13 @@
 import Foundation
 
 struct Game {
-    var player : Player
+    var players : Array<Player>
     var dice : Dice
     var board : Board
     var statusWining : Bool = false
     
-    init(player: Player, dice: Dice, board: Board) {
-        self.player = player
+    init(players: Array<Player>, dice: Dice, board: Board) {
+        self.players = players
         self.dice = dice
         self.board = board
     }
@@ -24,8 +24,8 @@ struct Game {
         statusWining = false
     }
     
-    func printBoard(){
-        print(board)
+    mutating func printBoard(){
+        print(board.grid)
     }
     
     func statusGame () -> Bool {
@@ -33,25 +33,43 @@ struct Game {
         
     }
     
-    mutating func moveOnBoard(numberOfMovemments : Int) {
-        board.grid[player.position] = 0
-        let newPosition = numberOfMovemments + player.position
+   
+    mutating func validateLaddersAndSnakes(newPosition : Int){
+        
+        let positionToMove = board.whereToMove(position: newPosition)
+        board.grid[positionToMove] = 1
+        for player in players {
+            player.position = positionToMove
+        }
+       
 
-        if newPosition >= (board.columns * board.rows) {
-            statusWining = true
-            
-        } else {
-            if player.position != 0 {
-                player.position = newPosition
-                if newPosition <= board.columns * board.rows {
-                    board.grid[newPosition] = 1
-                }
+    }
+    
+    mutating func moveOnBoard(numberOfMovemments : Int) {
+        for player in players {
+            board.grid[player.position] = 0
+            let newPosition = numberOfMovemments + player.position
+           
+            if newPosition >= (board.columns * board.rows) {
+                statusWining = true
+                player.status = true
+                
             } else {
-                player.position = numberOfMovemments
-                board.grid[numberOfMovemments] = 1
+              
+                if player.position != 0 {
+                    player.position = newPosition
+                    if newPosition <= board.columns * board.rows {
+                        validateLaddersAndSnakes(newPosition: newPosition)
+                                           
+                    }
+                } else {
+                    player.position = numberOfMovemments
+                    validateLaddersAndSnakes(newPosition: newPosition)
+                }
+                
             }
         }
-    
+       
        
     }
 }

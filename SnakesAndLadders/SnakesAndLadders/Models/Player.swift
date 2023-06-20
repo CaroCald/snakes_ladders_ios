@@ -7,9 +7,16 @@
 
 import Foundation
 
-struct Player {
-    var name : String
-    var position : Int
+class Player {
+    var name : String = ""
+    var position : Int = 0
+    var status : Bool
+    
+    init(name: String, position: Int, status: Bool) {
+        self.name = name
+        self.position = position
+        self.status = status
+    }
     
     func playerName () -> String {
         return name
