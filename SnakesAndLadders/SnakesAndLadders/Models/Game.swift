@@ -33,7 +33,6 @@ struct Game {
         
     }
     
-   
     mutating func validateLaddersAndSnakes(newPosition : Int){
         
         let positionToMove = board.whereToMove(position: newPosition)
@@ -41,7 +40,6 @@ struct Game {
         for player in players {
             player.position = positionToMove
         }
-       
 
     }
     
@@ -60,7 +58,6 @@ struct Game {
                     player.position = newPosition
                     if newPosition <= board.columns * board.rows {
                         validateLaddersAndSnakes(newPosition: newPosition)
-                                           
                     }
                 } else {
                     player.position = numberOfMovemments
@@ -69,7 +66,6 @@ struct Game {
                 
             }
         }
-       
        
     }
 }

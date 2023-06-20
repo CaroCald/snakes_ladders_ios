@@ -8,11 +8,14 @@
 import Foundation
 
 struct Board {
+    
     let rows: Int, columns: Int
     var snakes : Array<Snake> = []
     var ladders: Array<Ladder> = []
     var grid: [Int]
+    
     init(rows: Int, columns: Int) {
+        
         self.rows = rows
         self.columns = columns
         grid = Array(repeating: 0, count: rows * columns)
@@ -25,12 +28,11 @@ struct Board {
             Snake(initPosition: 98, endPosition: 78)])
         addLadder(ladders: [
             Ladder(initPosition: 4, endPosition: 14),
-                             Ladder(initPosition: 9, endPosition: 31),
-                             Ladder(initPosition: 21, endPosition: 42),
-                             Ladder(initPosition: 51, endPosition: 67),
-                             Ladder(initPosition: 91, endPosition: 71),
-                             Ladder(initPosition: 80, endPosition: 99),
-                           ])
+            Ladder(initPosition: 9, endPosition: 31),
+            Ladder(initPosition: 21, endPosition: 42),
+            Ladder(initPosition: 51, endPosition: 67),
+            Ladder(initPosition: 91, endPosition: 71),
+            Ladder(initPosition: 80, endPosition: 99)])
         
     }
     
@@ -40,8 +42,6 @@ struct Board {
             grid[sn.endPosition] = sn.endPosition
             grid[sn.initPosition] = sn.initPosition
         }
-        
-        
     }
     
     mutating func addLadder(ladders : Array<Ladder>) {

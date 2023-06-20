@@ -21,18 +21,14 @@ class ViewController: UIViewController {
         super.viewDidLoad()
     }
 
-
-    @IBAction func addPlayersPressed(_ sender: UIButton) {
+    @IBAction func startGamePressed(_ sender: UIButton) {
         numberOfPlayers = Int(playerInput.text ?? "2") ?? 2
+
         game = Game(players: [], dice: Dice(), board: Board(rows: 10, columns: 10))
         for i in 1...numberOfPlayers {
             game!.players.append(Player(name: "Jugador \(i)", position: 0, status: false))
         }
-        
 
-    }
-    @IBAction func startGamePressed(_ sender: UIButton) {
-    
     
         for i in 1...numberOfPlayers {
             if game != nil {
@@ -55,7 +51,6 @@ class ViewController: UIViewController {
     @IBAction func rollDicePressed(_ sender: UIButton) {
 
         if game != nil {
-          
             if !game!.statusGame() {
                 for i in 1...numberOfPlayers {
                     if game!.players[i-1].status {
@@ -70,7 +65,7 @@ class ViewController: UIViewController {
                         print("================TABLERO==================")
                         game!.printBoard()
                         print("================MOVIMIENTOS==================")
-                       print(infoGame)
+                        print(infoGame)
                         infoGame = ""
                     }
                 }
@@ -81,17 +76,12 @@ class ViewController: UIViewController {
                 let winGame = "El jugador \(founded!.name) GANÓ!!!"
                 labelStatus.text = winGame
                 print(winGame)
-
             }
-            
             
         }
         else {
             labelStatus.text = "Empieza el juego para tirar el dado"
         }
-        
-
     }
-    
 }
 
