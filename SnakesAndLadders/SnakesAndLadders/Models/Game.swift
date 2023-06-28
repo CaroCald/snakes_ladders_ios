@@ -23,7 +23,6 @@ struct Game {
     }
     
     mutating func startGame(){
-        board = Board(rows: 10, columns: 10)
         statusWining = false
         neededMovemmentsToWin = 0
     }
@@ -57,11 +56,13 @@ struct Game {
         
         for player in players {
             board.grid[player.position] = 0
+            
             if spaces == nil {
-                numberOfMovemments = Dice().rollDice()
+                numberOfMovemments = self.dice.rollDice()
             }else{
                 numberOfMovemments = spaces!
             }
+            
             let newPosition = numberOfMovemments + player.position
            
             if newPosition >= (board.columns * board.rows) {
@@ -81,6 +82,11 @@ struct Game {
                 }
                 
             }
+            
+            infoGame += "\(player.playerName()) se debe moverse \(numberOfMovemments) espacios y se encuentra en la posicion \(player.position) y cayo en una \(board.typeOfFigure) \n "
+            
+           print(infoGame)
+           infoGame = ""
         }
     }
 }

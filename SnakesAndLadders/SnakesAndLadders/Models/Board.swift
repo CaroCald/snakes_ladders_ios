@@ -9,7 +9,8 @@ import Foundation
 
 struct Board {
     
-    let rows: Int, columns: Int
+    let rows: Int
+    let columns: Int
     var snakes : Array<Snake> = []
     var ladders: Array<Ladder> = []
     var grid: [Int]
