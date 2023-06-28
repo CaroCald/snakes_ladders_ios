@@ -25,25 +25,14 @@ class ViewController: UIViewController {
         numberOfPlayers = Int(playerInput.text ?? "2") ?? 2
 
         game = Game(players: [], dice: Dice(), board: Board(rows: 10, columns: 10))
+        
         for i in 1...numberOfPlayers {
             game!.players.append(Player(name: "Jugador \(i)", position: 0, status: false))
         }
-
-    
-        for i in 1...numberOfPlayers {
-            if game != nil {
-                game!.startGame()
-                game!.moveOnBoard(numberOfMovemments: game!.players[i-1].position)
-                infoGame +=
-                "El jugador \(game!.players[i-1].playerName()) se encuentra \n  en la posicion \(game!.players[i-1].position) \n "
-                labelStatus.text = "Juego iniciado"
-                print("================TABLERO==================")
-                game!.printBoard()
-                print("================MOVIMIENTOS==================")
-                print(infoGame)
-                infoGame = ""
-
-            }
+        if game != nil {
+            game!.startGame()
+            game!.moveOnBoard(spaces: 0)
+            labelStatus.text = "Juego iniciado"
         }
        
     }
@@ -52,28 +41,20 @@ class ViewController: UIViewController {
 
         if game != nil {
             if !game!.statusGame() {
-                for i in 1...numberOfPlayers {
-                    if game!.players[i-1].status {
-                        let winGame = "El jugador \(game!.players[i-1].playerName()) GANÓ!!!"
-                        labelStatus.text = winGame
-                        print(winGame)
-                    } else {
-                        let movements = game!.dice.rollDice()
-                        infoGame += "El jugador \(game!.players[i-1].playerName()) \n  debe moverse \(movements) espacios \n "
-                        game!.moveOnBoard(numberOfMovemments: movements)
-                        infoGame += "El jugador \(game!.players[i-1].playerName()) se \n  encuentra en la posicion \(game!.players[i-1].position) \n "
-                        print("================TABLERO==================")
-                        game!.printBoard()
-                        print("================MOVIMIENTOS==================")
-                        print(infoGame)
-                        infoGame = ""
-                    }
+                game!.moveOnBoard()
+                
+                for player in game!.players {
+                    infoGame += "\(player.playerName()) se debe moverse \(game!.numberOfMovemments) espacios y se encuentra en la posicion \(player.position) y cayo en una \(game!.board.typeOfFigure) \n "
+                    
+                   print(infoGame)
+                   infoGame = ""
                 }
+
             } else {
                 let founded = game?.players.first(where: { player in
                     player.status == true
                 })
-                let winGame = "El jugador \(founded!.name) GANÓ!!!"
+                let winGame = "El \(founded!.name) GANÓ!!! y necesito de \(game?.neededMovemmentsToWin ?? 0) movimientos"
                 labelStatus.text = winGame
                 print(winGame)
             }

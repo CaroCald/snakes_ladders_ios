@@ -12,6 +12,9 @@ struct Game {
     var dice : Dice
     var board : Board
     var statusWining : Bool = false
+    var infoGame = ""
+    var numberOfMovemments : Int = 0
+    var neededMovemmentsToWin : Int = 0
     
     init(players: Array<Player>, dice: Dice, board: Board) {
         self.players = players
@@ -22,6 +25,7 @@ struct Game {
     mutating func startGame(){
         board = Board(rows: 10, columns: 10)
         statusWining = false
+        neededMovemmentsToWin = 0
     }
     
     mutating func printBoard(){
@@ -34,18 +38,30 @@ struct Game {
     }
     
     mutating func validateLaddersAndSnakes(newPosition : Int){
-        
+        var initialPosition =  newPosition
         let positionToMove = board.whereToMove(position: newPosition)
         board.grid[positionToMove] = 1
         for player in players {
             player.position = positionToMove
+            if initialPosition == 0 {
+                initialPosition = 1
+            }
+            player.token = initialPosition
         }
 
     }
     
-    mutating func moveOnBoard(numberOfMovemments : Int) {
+    mutating func moveOnBoard(spaces : Int? = nil) {
+        
+        neededMovemmentsToWin+=1
+        
         for player in players {
             board.grid[player.position] = 0
+            if spaces == nil {
+                numberOfMovemments = Dice().rollDice()
+            }else{
+                numberOfMovemments = spaces!
+            }
             let newPosition = numberOfMovemments + player.position
            
             if newPosition >= (board.columns * board.rows) {
@@ -66,6 +82,5 @@ struct Game {
                 
             }
         }
-       
     }
 }

@@ -9,28 +9,84 @@ import XCTest
 @testable import SnakesAndLadders
 
 final class SnakesAndLaddersTests: XCTestCase {
+    var game : Game? = nil
+    
+    
+    func testStartGamePositionPlayer() {
+      // given
+        game = Game(players: [Player(name: "Jugador 1", position: 0, status: false)], dice: Dice(), board: Board(rows: 10, columns: 10))
+       
+      // when
+        game?.startGame()
+        let playerPosition = game?.players[0].position ?? 0
+        game?.moveOnBoard(spaces: playerPosition)
+        let playerToken = game?.players[0].token
+        
 
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+      // then
+      XCTAssertEqual(playerToken, 1)
     }
+    
+    func testPositionPlayerMovedTo4() {
+      // given
+        game = Game(players: [Player(name: "Jugador 1", position: 0, status: false)], dice: Dice(), board: Board(rows: 10, columns: 10))
+       
+      // when
+        game?.startGame()
+        let playerPosition = game?.players[0].position ?? 0
+        game?.moveOnBoard(spaces: playerPosition)
+        game?.moveOnBoard(spaces: 3)
+        let playerPositionEnd = game?.players[0].token
+      // then
+      XCTAssertEqual(playerPositionEnd, 4)
+    }
+    
+    func testPositionPlayerMovedTo8() {
+      // given
+        game = Game(players: [Player(name: "Jugador 1", position: 0, status: false)], dice: Dice(), board: Board(rows: 10, columns: 10))
+       
+      // when
+        game?.startGame()
+        game?.moveOnBoard(spaces: 0)
+        game?.moveOnBoard(spaces: 3)
+        game?.moveOnBoard(spaces: 4)
+        let playerPositionEnd = game?.players[0].token
+      // then
+      XCTAssertEqual(playerPositionEnd, 8)
+    }
+    
+    func testPlayerCanWin() {
+      // given
+        game = Game(players: [Player(name: "Jugador 1", position: 0, status: false)], dice: Dice(), board: Board(rows: 10, columns: 10))
+       
+      // when
+        game?.startGame()
+        game?.moveOnBoard(spaces: 0)
+        game?.moveOnBoard(spaces: 97)
+        game?.moveOnBoard(spaces: 4)
 
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+     
+        let status = game?.players[0].status
+      // then
+      XCTAssertEqual(status, true)
     }
+    
+    func testPlayerCanWinWith4() {
+      // given
+        game = Game(players: [Player(name: "Jugador 1", position: 0, status: false)], dice: Dice(), board: Board(rows: 10, columns: 10))
+       
+      // when
+        game?.startGame()
+        game?.moveOnBoard(spaces: 0)
+        game?.moveOnBoard(spaces: 97)
+        game?.moveOnBoard(spaces: 4)
 
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        // Any test you write for XCTest can be annotated as throws and async.
-        // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
-        // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
+     
+        let status = game?.players[0].status
+      // then
+      XCTAssertEqual(status, true)
     }
-
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
-    }
+    
+    
 
 }

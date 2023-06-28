@@ -9,6 +9,7 @@ import Foundation
 struct Snake {
     var initPosition : Int
     var endPosition : Int
+    var typeOfFigure : TypeOfFigure = TypeOfFigure.snake
     
     init(initPosition: Int, endPosition: Int) {
         self.initPosition = initPosition

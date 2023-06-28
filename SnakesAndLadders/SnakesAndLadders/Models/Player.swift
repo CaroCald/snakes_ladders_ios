@@ -11,6 +11,7 @@ class Player {
     var name : String = ""
     var position : Int = 0
     var status : Bool
+    var token: Int = 0
     
     init(name: String, position: Int, status: Bool) {
         self.name = name
