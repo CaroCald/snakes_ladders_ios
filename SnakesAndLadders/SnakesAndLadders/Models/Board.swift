@@ -20,6 +20,7 @@ struct Board {
         
         self.rows = rows
         self.columns = columns
+        
         grid = Array(repeating: 0, count: rows * columns)
       
         addSnakes(snakes: [
@@ -62,11 +63,17 @@ struct Board {
             grid[ldr.initPosition-1] = ldr.initPosition
         }
     }
+    
+    func getTypeFigure() -> TypeOfFigure {
+        return self.typeOfFigure
+    }
    
     
     mutating func whereToMove(position : Int) -> Int{
         var moveToPostion = position
+        
         self.typeOfFigure = TypeOfFigure.normal
+        
         for lad in ladders {
             if position == lad.endPosition {
                 moveToPostion = lad.endPosition

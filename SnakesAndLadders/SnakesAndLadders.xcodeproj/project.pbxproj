@@ -24,6 +24,7 @@
 		8496F7792A4B7B0500E4BF0A /* SnakesAndLaddersTestDice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8496F7782A4B7B0500E4BF0A /* SnakesAndLaddersTestDice.swift */; };
 		8496F77C2A4B81A700E4BF0A /* SnakesAndLaddersTestMovements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8496F77B2A4B81A700E4BF0A /* SnakesAndLaddersTestMovements.swift */; };
 		8496F77E2A4BBCB900E4BF0A /* TypeOfFigure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8496F77D2A4BBCB900E4BF0A /* TypeOfFigure.swift */; };
+		8496F7802A4E083600E4BF0A /* SnakesAndLaddersTestWinGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8496F77F2A4E083600E4BF0A /* SnakesAndLaddersTestWinGame.swift */; };
 		84F862932A1595B200C808E2 /* Board.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F862922A1595B200C808E2 /* Board.swift */; };
 /* End PBXBuildFile section */
 
@@ -66,6 +67,7 @@
 		8496F7782A4B7B0500E4BF0A /* SnakesAndLaddersTestDice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnakesAndLaddersTestDice.swift; sourceTree = "<group>"; };
 		8496F77B2A4B81A700E4BF0A /* SnakesAndLaddersTestMovements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnakesAndLaddersTestMovements.swift; sourceTree = "<group>"; };
 		8496F77D2A4BBCB900E4BF0A /* TypeOfFigure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeOfFigure.swift; sourceTree = "<group>"; };
+		8496F77F2A4E083600E4BF0A /* SnakesAndLaddersTestWinGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnakesAndLaddersTestWinGame.swift; sourceTree = "<group>"; };
 		84F862922A1595B200C808E2 /* Board.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Board.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -135,6 +137,7 @@
 				8484B1B82A14070900FD82F8 /* SnakesAndLaddersTests.swift */,
 				8496F7782A4B7B0500E4BF0A /* SnakesAndLaddersTestDice.swift */,
 				8496F77B2A4B81A700E4BF0A /* SnakesAndLaddersTestMovements.swift */,
+				8496F77F2A4E083600E4BF0A /* SnakesAndLaddersTestWinGame.swift */,
 			);
 			path = SnakesAndLaddersTests;
 			sourceTree = "<group>";
@@ -327,6 +330,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8484B1B92A14070900FD82F8 /* SnakesAndLaddersTests.swift in Sources */,
+				8496F7802A4E083600E4BF0A /* SnakesAndLaddersTestWinGame.swift in Sources */,
 				8496F77C2A4B81A700E4BF0A /* SnakesAndLaddersTestMovements.swift in Sources */,
 				8496F7792A4B7B0500E4BF0A /* SnakesAndLaddersTestDice.swift in Sources */,
 			);

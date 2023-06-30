@@ -25,6 +25,7 @@ struct Game {
     mutating func startGame(){
         statusWining = false
         neededMovemmentsToWin = 0
+        moveOnBoard(spaces: 0)
     }
     
     mutating func printBoard(){
@@ -56,37 +57,44 @@ struct Game {
         
         for player in players {
             board.grid[player.position] = 0
-            
-            if spaces == nil {
-                numberOfMovemments = self.dice.rollDice()
-            }else{
-                numberOfMovemments = spaces!
-            }
-            
-            let newPosition = numberOfMovemments + player.position
-           
-            if newPosition >= (board.columns * board.rows) {
-                statusWining = true
-                player.status = true
-                
-            } else {
-              
-                if player.position != 0 {
-                    player.position = newPosition
-                    if newPosition <= board.columns * board.rows {
-                        validateLaddersAndSnakes(newPosition: newPosition)
-                    }
-                } else {
-                    player.position = numberOfMovemments
-                    validateLaddersAndSnakes(newPosition: newPosition)
+            if player.status == false && statusWining == false {
+               
+                if spaces == nil {
+                    numberOfMovemments = self.dice.rollDice()
+                }else{
+                    numberOfMovemments = spaces!
                 }
                 
+                let newPosition = numberOfMovemments + player.position
+               
+                if newPosition >= (board.columns * board.rows) {
+                    if newPosition == (board.columns * board.rows){
+                        statusWining = true
+                        player.status = true
+                        player.position = newPosition
+                    }
+                    
+                } else {
+                  
+                    if player.position != 0 {
+                        player.position = newPosition
+                        if newPosition <= board.columns * board.rows {
+                            validateLaddersAndSnakes(newPosition: newPosition)
+                        }
+                    } else {
+                        player.position = numberOfMovemments
+                        validateLaddersAndSnakes(newPosition: newPosition)
+                    }
+                    
+                }
+                
+                infoGame += "\(player.playerName()) se debe moverse \(numberOfMovemments) espacios y se encuentra en la posicion \(player.position) y cayo en una \(board.getTypeFigure()) \n "
+                
+               print(infoGame)
+               infoGame = ""
             }
             
-            infoGame += "\(player.playerName()) se debe moverse \(numberOfMovemments) espacios y se encuentra en la posicion \(player.position) y cayo en una \(board.typeOfFigure) \n "
-            
-           print(infoGame)
-           infoGame = ""
+          
         }
     }
 }

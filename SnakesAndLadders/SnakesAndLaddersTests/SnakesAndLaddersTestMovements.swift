@@ -18,7 +18,7 @@ final class SnakesAndLaddersTestMovements: XCTestCase {
        
       // when
         game?.startGame()
-        game?.moveOnBoard(spaces: 92)
+        game?.moveOnBoard(spaces: 91)
         
         
         let playerPosition = game?.players[0].position
@@ -34,7 +34,7 @@ final class SnakesAndLaddersTestMovements: XCTestCase {
        
       // when
         game?.startGame()
-        game?.moveOnBoard(spaces: 28)
+        game?.moveOnBoard(spaces: 27)
         
         
         let playerPosition = game?.players[0].position

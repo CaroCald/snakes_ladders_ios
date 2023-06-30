@@ -38,7 +38,7 @@ final class SnakesAndLaddersTestDice: XCTestCase {
         game?.moveOnBoard(spaces: numberDice)
 
      
-        let spaces = game?.players[0].position
+        let spaces = game?.numberOfMovemments
       // then
       XCTAssertEqual(spaces, 4)
     }

@@ -32,8 +32,8 @@ class ViewController: UIViewController {
                 game!.players.append(Player(name: "Jugador \(i)", position: 0, status: false))
             }
             game!.startGame()
-            game!.moveOnBoard(spaces: 0)
             labelStatus.text = "Juego iniciado"
+            labelMovements.text = ""
         }
        
     }
@@ -48,9 +48,11 @@ class ViewController: UIViewController {
                 let founded = game?.players.first(where: { player in
                     player.status == true
                 })
-                let winGame = "El \(founded!.name) GANÓ!!! y necesito de \(game?.neededMovemmentsToWin ?? 0) movimientos"
+                let winGame = "El \(founded!.name) GANÓ!!!"
                 labelStatus.text = winGame
-                print(winGame)
+                let moves = "necesito de \(game?.neededMovemmentsToWin ?? 0) movimientos"
+                labelMovements.text = moves
+                print(winGame + moves)
             }
             
         }
