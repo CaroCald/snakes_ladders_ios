@@ -27,14 +27,10 @@ class ViewController: UIViewController {
         game = Game(players: [], dice: Dice(), board: Board(rows: 10, columns: 10))
         
         
-        if game != nil {
-            for i in 1...numberOfPlayers {
-                game!.players.append(Player(name: "Jugador \(i)", position: 0, status: false))
-            }
-            game!.startGame()
-            labelStatus.text = "Juego iniciado"
-            labelMovements.text = ""
-        }
+        game!.addPlayers(numberOfPlayers: numberOfPlayers)
+        game!.startGame()
+        labelStatus.text = "Juego iniciado"
+        labelMovements.text = ""
        
     }
     

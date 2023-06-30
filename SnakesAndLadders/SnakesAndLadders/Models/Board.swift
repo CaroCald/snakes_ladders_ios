@@ -24,7 +24,7 @@ struct Board {
         grid = Array(repeating: 0, count: rows * columns)
       
         addSnakes(snakes: [
-            Snake(initPosition: 16, endPosition: 6),
+            Snake(initPosition: 6, endPosition: 16),
             Snake(initPosition: 49, endPosition: 11),
             Snake(initPosition: 62, endPosition: 19),
             Snake(initPosition: 64, endPosition: 60),

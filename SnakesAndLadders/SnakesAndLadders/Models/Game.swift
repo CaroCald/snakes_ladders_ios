@@ -28,6 +28,11 @@ struct Game {
         moveOnBoard(spaces: 0)
     }
     
+    mutating func addPlayers(numberOfPlayers : Int){
+        for i in 1...numberOfPlayers {
+            players.append(Player(name: "Jugador \(i)", position: 0, status: false))
+        }
+    }
     mutating func printBoard(){
         print(board.grid)
     }

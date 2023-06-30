@@ -34,13 +34,13 @@ final class SnakesAndLaddersTestMovements: XCTestCase {
        
       // when
         game?.startGame()
-        game?.moveOnBoard(spaces: 27)
+        game?.moveOnBoard(spaces: 14)
         
         
         let playerPosition = game?.players[0].position
         
 
       // then
-      XCTAssertEqual(playerPosition, 84)
+      XCTAssertEqual(playerPosition, 26)
     }
 }

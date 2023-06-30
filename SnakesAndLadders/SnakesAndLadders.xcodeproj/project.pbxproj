@@ -26,6 +26,7 @@
 		8496F77E2A4BBCB900E4BF0A /* TypeOfFigure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8496F77D2A4BBCB900E4BF0A /* TypeOfFigure.swift */; };
 		8496F7802A4E083600E4BF0A /* SnakesAndLaddersTestWinGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8496F77F2A4E083600E4BF0A /* SnakesAndLaddersTestWinGame.swift */; };
 		84F862932A1595B200C808E2 /* Board.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F862922A1595B200C808E2 /* Board.swift */; };
+		881FB12B2A4F46EE00558ADB /* TestValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881FB12A2A4F46EE00558ADB /* TestValues.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,6 +70,7 @@
 		8496F77D2A4BBCB900E4BF0A /* TypeOfFigure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeOfFigure.swift; sourceTree = "<group>"; };
 		8496F77F2A4E083600E4BF0A /* SnakesAndLaddersTestWinGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnakesAndLaddersTestWinGame.swift; sourceTree = "<group>"; };
 		84F862922A1595B200C808E2 /* Board.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Board.swift; sourceTree = "<group>"; };
+		881FB12A2A4F46EE00558ADB /* TestValues.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestValues.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -138,6 +140,7 @@
 				8496F7782A4B7B0500E4BF0A /* SnakesAndLaddersTestDice.swift */,
 				8496F77B2A4B81A700E4BF0A /* SnakesAndLaddersTestMovements.swift */,
 				8496F77F2A4E083600E4BF0A /* SnakesAndLaddersTestWinGame.swift */,
+				881FB12A2A4F46EE00558ADB /* TestValues.swift */,
 			);
 			path = SnakesAndLaddersTests;
 			sourceTree = "<group>";
@@ -332,6 +335,7 @@
 				8484B1B92A14070900FD82F8 /* SnakesAndLaddersTests.swift in Sources */,
 				8496F7802A4E083600E4BF0A /* SnakesAndLaddersTestWinGame.swift in Sources */,
 				8496F77C2A4B81A700E4BF0A /* SnakesAndLaddersTestMovements.swift in Sources */,
+				881FB12B2A4F46EE00558ADB /* TestValues.swift in Sources */,
 				8496F7792A4B7B0500E4BF0A /* SnakesAndLaddersTestDice.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
