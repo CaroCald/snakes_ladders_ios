@@ -6,13 +6,10 @@
 //
 
 import Foundation
-struct Snake {
-    var initPosition : Int
-    var endPosition : Int
-    var typeOfFigure : TypeOfFigure = TypeOfFigure.snake
+class Snake : Figure {
     
-    init(initPosition: Int, endPosition: Int) {
-        self.initPosition = initPosition
-        self.endPosition = endPosition
+    override func setFigure(typeOfFigure: TypeOfFigure) {
+        self.typeOfFigure = TypeOfFigure.snake
     }
+    
 }

@@ -1,0 +1,22 @@
+//
+//  Figure.swift
+//  SnakesAndLadders
+//
+//  Created by bayteq on 3/7/23.
+//
+
+import Foundation
+class Figure {
+    var initPosition: Int
+    var endPosition: Int
+    var typeOfFigure: TypeOfFigure = TypeOfFigure.normal
+   
+    init(initPosition: Int, endPosition: Int ) {
+        self.initPosition = initPosition
+        self.endPosition = endPosition
+    }
+    
+    func setFigure(typeOfFigure: TypeOfFigure) {
+        self.typeOfFigure = typeOfFigure
+    }
+}

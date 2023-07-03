@@ -27,6 +27,7 @@
 		8496F7802A4E083600E4BF0A /* SnakesAndLaddersTestWinGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8496F77F2A4E083600E4BF0A /* SnakesAndLaddersTestWinGame.swift */; };
 		84F862932A1595B200C808E2 /* Board.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F862922A1595B200C808E2 /* Board.swift */; };
 		881FB12B2A4F46EE00558ADB /* TestValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881FB12A2A4F46EE00558ADB /* TestValues.swift */; };
+		88F76A9B2A5384C200F0640B /* Figure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F76A9A2A5384C200F0640B /* Figure.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,6 +72,7 @@
 		8496F77F2A4E083600E4BF0A /* SnakesAndLaddersTestWinGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnakesAndLaddersTestWinGame.swift; sourceTree = "<group>"; };
 		84F862922A1595B200C808E2 /* Board.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Board.swift; sourceTree = "<group>"; };
 		881FB12A2A4F46EE00558ADB /* TestValues.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestValues.swift; sourceTree = "<group>"; };
+		88F76A9A2A5384C200F0640B /* Figure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Figure.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -164,6 +166,7 @@
 				8496F7702A41F8D300E4BF0A /* Snake.swift */,
 				8496F7722A41F8DF00E4BF0A /* Ladder.swift */,
 				8496F77D2A4BBCB900E4BF0A /* TypeOfFigure.swift */,
+				88F76A9A2A5384C200F0640B /* Figure.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -320,6 +323,7 @@
 				8484B1A62A14070700FD82F8 /* ViewController.swift in Sources */,
 				8484B1A22A14070700FD82F8 /* AppDelegate.swift in Sources */,
 				8496F7732A41F8DF00E4BF0A /* Ladder.swift in Sources */,
+				88F76A9B2A5384C200F0640B /* Figure.swift in Sources */,
 				8484B1D82A14103400FD82F8 /* Dice.swift in Sources */,
 				8496F77E2A4BBCB900E4BF0A /* TypeOfFigure.swift in Sources */,
 				84F862932A1595B200C808E2 /* Board.swift in Sources */,
