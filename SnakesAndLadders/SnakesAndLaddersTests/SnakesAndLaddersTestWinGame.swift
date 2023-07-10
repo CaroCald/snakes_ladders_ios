@@ -10,38 +10,62 @@ import XCTest
 
 final class SnakesAndLaddersTestWinGame: XCTestCase {
     var game : Game? = nil
-
+    
     func testPlayerCanWinInSquare100() {
-      // given
-        game = Game(players: [Player(name: "Jugador 1", position: 0, status: false)], dice: Dice(), board: Board(rows: 10, columns: 10))
-       
-      // when
-        game?.startGame()
-        game?.moveOnBoard(spaces: 96)
-        XCTAssertEqual(game?.players[0].position, 97)
-        game?.moveOnBoard(spaces: 3)
-        XCTAssertEqual(game?.players[0].position, 100)
-     
-        let status = game?.players[0].status
-      // then
-      XCTAssertEqual(status, true)
+        
+        do { // given
+            game = try Game(players: [Player(name: "Jugador 1", status: false)], dice: Dice(), board: Board.create(rows: 10, columns: 10, snakes: TestValues.arraySnakes, ladders: TestValues.arrayladders))
+            
+            // when
+            game?.startGame()
+            for player in game!.players {
+                game?.moveOnBoard(spaces: 96, player: player)
+                XCTAssertEqual(game?.players[0].position, 97)
+                game?.moveOnBoard(spaces: 3, player: player)
+                XCTAssertEqual(game?.players[0].position, 100)
+            }
+           
+            
+            let status = game?.players[0].status
+            // then
+            XCTAssertEqual(status, true)
+            
+        }catch CustomErrors.customError(let errorMessage){
+            print(errorMessage)
+        } catch {
+            print(error.localizedDescription)
+        }
+        
     }
     
     func testPlayerNotWinInSquare97() {
-      // given
-        game = Game(players: [Player(name: "Jugador 1", position: 0, status: false)], dice: Dice(), board: Board(rows: 10, columns: 10))
-       
-      // when
-        game?.startGame()
-        game?.moveOnBoard(spaces: 96)
-        XCTAssertEqual(game?.players[0].position, 97)
-        game?.moveOnBoard(spaces: 4)
-        XCTAssertEqual(game?.players[0].position, 97)
-     
-        let status = game?.players[0].status
+        // given
         
-      // then
-      XCTAssertEqual(status, false)
+        do {
+            game = try Game(players: [Player(name: "Jugador 1", status: false)], dice: Dice(), board: Board.create(rows: 10, columns: 10, snakes: TestValues.arraySnakes, ladders: TestValues.arrayladders))
+            
+            // when
+            game?.startGame()
+            
+            for player in game!.players {
+                game?.moveOnBoard(spaces: 96, player: player)
+                XCTAssertEqual(game?.players[0].position, 97)
+                game?.moveOnBoard(spaces: 4, player: player)
+                XCTAssertEqual(game?.players[0].position, 97)
+            }
+            
+    
+            
+            let status = game?.players[0].status
+            
+            // then
+            XCTAssertEqual(status, false)
+        }catch CustomErrors.customError(let errorMessage){
+            print(errorMessage)
+        } catch {
+            print(error.localizedDescription)
+        }
+        
     }
     
 }

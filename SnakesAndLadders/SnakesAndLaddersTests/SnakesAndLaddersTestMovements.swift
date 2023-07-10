@@ -10,37 +10,99 @@ import XCTest
 
 final class SnakesAndLaddersTestMovements: XCTestCase {
     var game : Game? = nil
-
-
+    
+    
     func testMoveOnBoardToSnakeOfOnePlayer() {
-      // given
-        game = Game(players: [Player(name: "Jugador 1", position: 0, status: false)], dice: Dice(), board: Board(rows: 10, columns: 10))
-       
-      // when
-        game?.startGame()
-        game?.moveOnBoard(spaces: 91)
+        do {
+            game = try Game(players: [Player(name: "Jugador 1", status: false)], dice: Dice(), board: Board.create(rows: 10, columns: 10,  snakes: TestValues.arraySnakes, ladders: TestValues.arrayladders))
+            
+            // when
+            game?.startGame()
+            for player in game!.players {
+                game!.moveOnBoard(spaces: 91, player: player)
+            }
+            
+            
+            let playerPosition = game?.players[0].position
+            
+            // then
+            XCTAssertEqual(playerPosition, 88)
+        }catch CustomErrors.customError(let errorMessage){
+            print(errorMessage)
+        } catch {
+            print(error.localizedDescription)
+        }
         
-        
-        let playerPosition = game?.players[0].position
-
-      // then
-      XCTAssertEqual(playerPosition, 88)
     }
-
     
     func testMoveOnBoardToLadderfOnePlayer() {
-      // given
-        game = Game(players: [Player(name: "Jugador 1", position: 0, status: false)], dice: Dice(), board: Board(rows: 10, columns: 10))
-       
-      // when
-        game?.startGame()
-        game?.moveOnBoard(spaces: 14)
+        do {
+            game = try Game(players: [Player(name: "Jugador 1", status: false)], dice: Dice(), board: Board.create(rows: 10, columns: 10,  snakes: TestValues.arraySnakesTest, ladders: TestValues.arrayladdersTest))
+            
+            // when
+            game?.startGame()
+            for player in game!.players {
+                game!.moveOnBoard(spaces: 91, player: player)
+            }
+            
+            
+            let playerPosition = game?.players[0].position
+            
+            // then
+            XCTAssertEqual(playerPosition, 88)
+        }catch CustomErrors.customError(let errorMessage){
+            print(errorMessage)
+        } catch {
+            print(error.localizedDescription)
+        }
+        
+    }
+    
+    
+    
+    func testLaddersInitFinalPosition() {
+        do {
+            game = try Game(players: [Player(name: "Jugador 1", status: false)], dice: Dice(), board: Board.create(rows: 10, columns: 10, snakes: TestValues.arraySnakes, ladders: TestValues.arrayladders))
+            
+            // when
+            game?.startGame()
+            for player in game!.players {
+                game!.moveOnBoard(spaces: 1, player: player)
+                
+            }
+            let playerPosition = game?.players[0].position
+            XCTAssertEqual(playerPosition, 38)
+            
+            
+        }catch CustomErrors.customError(let errorMessage){
+            print(errorMessage)
+        } catch {
+            print(error.localizedDescription)
+        }
         
         
-        let playerPosition = game?.players[0].position
+    }
+    
+    func testSnakesInitFinalPosition() {
+        do {
+            game = try Game(players: [Player(name: "Jugador 1", status: false)], dice: Dice(), board: Board.create(rows: 10, columns: 10, snakes: TestValues.arraySnakes, ladders: TestValues.arrayladders))
+            
+            // when
+            game?.startGame()
+            for player in game!.players {
+                game!.moveOnBoard(spaces: 15, player: player)
+                
+            }
+            let playerPosition = game?.players[0].position
+            XCTAssertEqual(playerPosition, 6)
+            
+            
+        }catch CustomErrors.customError(let errorMessage){
+            print(errorMessage)
+        } catch {
+            print(error.localizedDescription)
+        }
         
-
-      // then
-      XCTAssertEqual(playerPosition, 26)
+        
     }
 }

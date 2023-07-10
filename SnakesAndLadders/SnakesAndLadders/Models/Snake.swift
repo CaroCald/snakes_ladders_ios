@@ -6,10 +6,19 @@
 //
 
 import Foundation
-class Snake : Figure {
+public class Snake : Figure {
     
-    override func setFigure(typeOfFigure: TypeOfFigure) {
-        self.typeOfFigure = TypeOfFigure.snake
+    override var typeOfFigure: TypeOfFigure  {
+            get {
+                return TypeOfFigure.snake
+            }
+            set {
+               
+            }
+        }
+    override init(initPosition: Int, endPosition: Int) {
+        let maxValue = max(initPosition, endPosition)
+        let minValue = min(initPosition, endPosition)
+        super.init(initPosition: maxValue, endPosition: minValue)
     }
-    
 }

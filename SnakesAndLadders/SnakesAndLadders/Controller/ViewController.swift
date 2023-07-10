@@ -22,15 +22,20 @@ class ViewController: UIViewController {
     }
 
     @IBAction func startGamePressed(_ sender: UIButton) {
-        numberOfPlayers = Int(playerInput.text ?? "2") ?? 2
-
-        game = Game(players: [], dice: Dice(), board: Board(rows: 10, columns: 10))
         
-        
-        game!.addPlayers(numberOfPlayers: numberOfPlayers)
-        game!.startGame()
-        labelStatus.text = "Juego iniciado"
-        labelMovements.text = ""
+        do {
+            numberOfPlayers = Int(playerInput.text ?? "2") ?? 2
+            game = try Game(players: [], dice: Dice(), board: Board.create(rows: 10, columns: 10, snakes: TestValues.arraySnakes, ladders: TestValues.arrayladders))
+            game!.addPlayers(numberOfPlayers: numberOfPlayers)
+            game?.startGame()
+            labelStatus.text = "Juego iniciado"
+            labelMovements.text = ""
+            
+        }catch CustomErrors.customError(let errorMessage){
+           print(errorMessage)
+        } catch {
+            print(error.localizedDescription)
+        }
        
     }
     
@@ -38,7 +43,9 @@ class ViewController: UIViewController {
 
         if game != nil {
             if !game!.statusGame() {
-                game!.moveOnBoard()
+                for player in game!.players {
+                    game!.moveOnBoard(spaces: game!.dice.rollDice(), player: player)
+                }
 
             } else {
                 let founded = game?.players.first(where: { player in

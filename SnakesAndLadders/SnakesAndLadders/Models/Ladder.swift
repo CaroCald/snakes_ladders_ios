@@ -6,10 +6,17 @@
 //
 
 import Foundation
-class Ladder : Figure {
+public class Ladder : Figure {
+    override var typeOfFigure: TypeOfFigure  {
+            get {
+                return TypeOfFigure.ladder
+            }
+            set {}
+        }
     
-    override func setFigure(typeOfFigure: TypeOfFigure) {
-        self.typeOfFigure = TypeOfFigure.ladder
+    override init(initPosition: Int, endPosition: Int) {
+        let maxValue = max(initPosition, endPosition)
+        let minValue = min(initPosition, endPosition)
+        super.init(initPosition: minValue, endPosition: maxValue)
     }
-    
 }

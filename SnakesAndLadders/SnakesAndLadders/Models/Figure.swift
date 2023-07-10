@@ -6,7 +6,7 @@
 //
 
 import Foundation
-class Figure {
+public class Figure {
     var initPosition: Int
     var endPosition: Int
     var typeOfFigure: TypeOfFigure = TypeOfFigure.normal
@@ -16,7 +16,4 @@ class Figure {
         self.endPosition = endPosition
     }
     
-    func setFigure(typeOfFigure: TypeOfFigure) {
-        self.typeOfFigure = typeOfFigure
-    }
 }

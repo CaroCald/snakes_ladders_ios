@@ -12,10 +12,11 @@ class Player {
     var position : Int = 0
     var status : Bool
     var token: Int = 0
+    var numberOfMovements : Int = 0
+    var typeOfFigure: TypeOfFigure = TypeOfFigure.normal
     
-    init(name: String, position: Int, status: Bool) {
+    init(name: String, status: Bool) {
         self.name = name
-        self.position = position
         self.status = status
     }
     

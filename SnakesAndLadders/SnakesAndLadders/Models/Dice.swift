@@ -14,4 +14,7 @@ struct Dice {
     func rollDice () -> Int{
         return Int.random(in: 1...numberFaces)
     }
+    func rollDiceWithSetValue (defaultValue: Int ) -> Int{
+        return defaultValue
+    }
 }

@@ -25,12 +25,14 @@ struct Game {
     mutating func startGame(){
         statusWining = false
         neededMovemmentsToWin = 0
-        moveOnBoard(spaces: 0)
+        for player in players {
+            moveOnBoard(spaces: player.position, player:player)
+        }
     }
     
     mutating func addPlayers(numberOfPlayers : Int){
         for i in 1...numberOfPlayers {
-            players.append(Player(name: "Jugador \(i)", position: 0, status: false))
+            players.append(Player(name: "Jugador \(i)", status: false))
         }
     }
     mutating func printBoard(){
@@ -42,64 +44,56 @@ struct Game {
         
     }
     
-    mutating func validateLaddersAndSnakes(newPosition : Int){
+    mutating func validateLaddersAndSnakes(newPosition : Int, player:Player ){
         var initialPosition =  newPosition
-        let positionToMove = board.whereToMove(position: newPosition)
+        let positionToMove = board.whereToMove(position: newPosition, player: player )
         board.grid[positionToMove] = 1
-        for player in players {
-            player.position = positionToMove
-            if initialPosition == 0 {
-                initialPosition = 1
-            }
-            player.token = initialPosition
+        player.position = positionToMove
+        if initialPosition == 0 {
+            initialPosition = 1
         }
-
+        player.token = initialPosition
+        
     }
     
-    mutating func moveOnBoard(spaces : Int? = nil) {
+    mutating func moveOnBoard(spaces : Int, player:Player) {
         
         neededMovemmentsToWin+=1
+       // board.grid[player.position] = 0
         
-        for player in players {
-            board.grid[player.position] = 0
-            if player.status == false && statusWining == false {
-               
-                if spaces == nil {
-                    numberOfMovemments = self.dice.rollDice()
-                }else{
-                    numberOfMovemments = spaces!
+        if player.status == false && statusWining == false {
+            numberOfMovemments = spaces
+            player.numberOfMovements = spaces
+            let newPosition = spaces + player.position
+            
+            if newPosition >= (board.columns * board.rows) {
+                if newPosition == (board.columns * board.rows){
+                    statusWining = true
+                    player.status = true
+                    player.position = newPosition
+                    player.typeOfFigure = TypeOfFigure.normal
                 }
                 
-                let newPosition = numberOfMovemments + player.position
-               
-                if newPosition >= (board.columns * board.rows) {
-                    if newPosition == (board.columns * board.rows){
-                        statusWining = true
-                        player.status = true
-                        player.position = newPosition
+            } else {
+                
+                if player.position != 0 {
+                    player.position = newPosition
+                    if newPosition <= board.columns * board.rows {
+                        validateLaddersAndSnakes(newPosition: newPosition, player: player)
                     }
-                    
                 } else {
-                  
-                    if player.position != 0 {
-                        player.position = newPosition
-                        if newPosition <= board.columns * board.rows {
-                            validateLaddersAndSnakes(newPosition: newPosition)
-                        }
-                    } else {
-                        player.position = numberOfMovemments
-                        validateLaddersAndSnakes(newPosition: newPosition)
-                    }
-                    
+                    player.position = numberOfMovemments
+                    validateLaddersAndSnakes(newPosition: newPosition, player: player)
                 }
                 
-                infoGame += "\(player.playerName()) se debe moverse \(numberOfMovemments) espacios y se encuentra en la posicion \(player.position) y cayo en una \(board.getTypeFigure()) \n "
-                
-               print(infoGame)
-               infoGame = ""
             }
             
-          
+            infoGame += "\(player.playerName()) se debe moverse \( player.numberOfMovements) espacios y se encuentra en la posicion \(player.position) y  cayo en una \(player.typeOfFigure)\n "
+            
+            print(infoGame)
+            infoGame = ""
         }
+        
+        
     }
 }
