@@ -21,7 +21,6 @@ final class SnakesAndLaddersCreateBoard: XCTestCase {
             hasError = true
             print(errorMessage)
         } catch {
-            hasError = true
             print(error.localizedDescription)
         }
         
@@ -39,7 +38,6 @@ final class SnakesAndLaddersCreateBoard: XCTestCase {
             hasError = true
             print(errorMessage)
         } catch {
-            hasError = true
             print(error.localizedDescription)
         }
         
@@ -57,7 +55,36 @@ final class SnakesAndLaddersCreateBoard: XCTestCase {
             hasError = true
             print(errorMessage)
         } catch {
+            print(error.localizedDescription)
+        }
+        
+        XCTAssertEqual(hasError, true)
+    }
+    func testCreateBoardWithLadderInit() {
+        var  hasError : Bool = false
+        do { // given
+            game = try Game(players: [Player(name: "Jugador 1", status: false)], dice: Dice(), board: Board.create(rows: 10, columns: 10, snakes: TestValues.arraySnakesTest, ladders: TestValues.arrayladdersTestWithErrorInit))
+            game?.startGame()
+            
+        } catch CustomErrors.customError(let errorMessage){
             hasError = true
+            print(errorMessage)
+        } catch {
+            print(error.localizedDescription)
+        }
+        
+        XCTAssertEqual(hasError, true)
+    }
+    func testCreateBoardWithSnakeInit() {
+        var  hasError : Bool = false
+        do { // given
+            game = try Game(players: [Player(name: "Jugador 1", status: false)], dice: Dice(), board: Board.create(rows: 10, columns: 10, snakes: TestValues.arraySnakesTestWithErrorInit, ladders: TestValues.arrayladdersTest))
+            game?.startGame()
+            
+        } catch CustomErrors.customError(let errorMessage){
+            hasError = true
+            print(errorMessage)
+        } catch {
             print(error.localizedDescription)
         }
         

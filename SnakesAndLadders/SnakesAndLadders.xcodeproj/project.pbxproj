@@ -165,9 +165,9 @@
 		8484B1D12A14079E00FD82F8 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				887281EE2A5D9A8600DA163C /* TestValues */,
 				8878ECE62A54A9F4002A8378 /* Errors */,
 				8878ECE52A547991002A8378 /* Guards */,
-				881FB12A2A4F46EE00558ADB /* TestValues.swift */,
 				8484B1D52A14101E00FD82F8 /* Game.swift */,
 				8484B1D72A14103400FD82F8 /* Dice.swift */,
 				8484B1D92A14118A00FD82F8 /* Player.swift */,
@@ -194,6 +194,14 @@
 				8484B1A72A14070700FD82F8 /* Main.storyboard */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		887281EE2A5D9A8600DA163C /* TestValues */ = {
+			isa = PBXGroup;
+			children = (
+				881FB12A2A4F46EE00558ADB /* TestValues.swift */,
+			);
+			path = TestValues;
 			sourceTree = "<group>";
 		};
 		8878ECE52A547991002A8378 /* Guards */ = {

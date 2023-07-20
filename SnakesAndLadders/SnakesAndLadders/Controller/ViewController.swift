@@ -27,7 +27,7 @@ class ViewController: UIViewController {
             numberOfPlayers = Int(playerInput.text ?? "2") ?? 2
             game = try Game(players: [], dice: Dice(), board: Board.create(rows: 10, columns: 10, snakes: TestValues.arraySnakes, ladders: TestValues.arrayladders))
             game!.addPlayers(numberOfPlayers: numberOfPlayers)
-            game?.startGame()
+            game!.startGame()
             labelStatus.text = "Juego iniciado"
             labelMovements.text = ""
             
@@ -48,12 +48,12 @@ class ViewController: UIViewController {
                 }
 
             } else {
-                let founded = game?.players.first(where: { player in
+                let founded = game!.players.first(where: { player in
                     player.status == true
                 })
                 let winGame = "El \(founded!.name) GANÓ!!!"
                 labelStatus.text = winGame
-                let moves = "necesito de \(game?.neededMovemmentsToWin ?? 0) movimientos"
+                let moves = "necesito de \(founded!.requiredMovements) movimientos"
                 labelMovements.text = moves
                 print(winGame + moves)
             }

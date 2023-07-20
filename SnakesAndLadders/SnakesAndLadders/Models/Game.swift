@@ -56,14 +56,13 @@ struct Game {
         
     }
     
+    
     mutating func moveOnBoard(spaces : Int, player:Player) {
-        
-        neededMovemmentsToWin+=1
-       // board.grid[player.position] = 0
         
         if player.status == false && statusWining == false {
             numberOfMovemments = spaces
             player.numberOfMovements = spaces
+            player.requiredMovements+=1
             let newPosition = spaces + player.position
             
             if newPosition >= (board.columns * board.rows) {

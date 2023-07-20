@@ -13,6 +13,7 @@ class Player {
     var status : Bool
     var token: Int = 0
     var numberOfMovements : Int = 0
+    var requiredMovements : Int = 0
     var typeOfFigure: TypeOfFigure = TypeOfFigure.normal
     
     init(name: String, status: Bool) {

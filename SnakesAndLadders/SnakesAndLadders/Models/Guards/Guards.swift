@@ -22,18 +22,19 @@ public func guardValidBoard(value: Int?, alert: String) throws -> Int {
 public func guardValidSnake(snakes : Array<Snake>, boardZise: Int ,alert: String) throws -> Array<Snake> {
     
     for sn in snakes {
-        guard sn.endPosition-1 < boardZise && sn.endPosition-1 >= 0 else {
-            throw CustomErrors.customError(message: alert)
-        }
-        guard sn.initPosition-1 < boardZise && sn.endPosition-1 >= 0 else{
-            throw CustomErrors.customError(message: alert)
-        }
-        guard !(sn.initPosition-1 == boardZise) else{
+        guard sn.initPosition != boardZise else{
             throw CustomErrors.customError(message: "No puede ir una serpiente en el fin del tablero")
         }
-        guard !(sn.initPosition-1 == 0) else{
+        guard sn.initPosition != 0 else{
             throw CustomErrors.customError(message: "No puede ir una serpiente en el inicio del tablero")
         }
+        guard sn.endPosition-1 < boardZise && sn.endPosition-1 > 0 else {
+            throw CustomErrors.customError(message: alert)
+        }
+        guard sn.initPosition-1 < boardZise && sn.endPosition-1 > 0 else{
+            throw CustomErrors.customError(message: alert)
+        }
+        
     }
     
     return snakes
@@ -42,18 +43,19 @@ public func guardValidSnake(snakes : Array<Snake>, boardZise: Int ,alert: String
 public func guardValidLadder(ladder : Array<Ladder>, boardZise: Int ,alert: String) throws -> Array<Ladder> {
     
     for sn in ladder {
-        guard sn.endPosition-1 < boardZise else {
-            throw CustomErrors.customError(message: alert)
-        }
-        guard sn.initPosition-1 < boardZise else{
-            throw CustomErrors.customError(message: alert)
-        }
-        guard !(sn.initPosition-1 == boardZise) else{
+        guard sn.initPosition != boardZise else{
             throw CustomErrors.customError(message: "No puede ir una escalera en el fin del tablero")
         }
-        guard !(sn.initPosition-1 == 0) else {
+        guard sn.initPosition != 0 else {
             throw CustomErrors.customError(message: "No puede ir una escalera en el inicio del tablero")
         }
+        guard sn.endPosition-1 < boardZise && sn.endPosition-1 > 0 else {
+            throw CustomErrors.customError(message: alert)
+        }
+        guard sn.initPosition-1 < boardZise && sn.endPosition-1 > 0 else{
+            throw CustomErrors.customError(message: alert)
+        }
+        
     }
     
     return ladder

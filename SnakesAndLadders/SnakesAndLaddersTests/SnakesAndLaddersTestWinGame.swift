@@ -54,8 +54,6 @@ final class SnakesAndLaddersTestWinGame: XCTestCase {
                 XCTAssertEqual(game?.players[0].position, 97)
             }
             
-    
-            
             let status = game?.players[0].status
             
             // then

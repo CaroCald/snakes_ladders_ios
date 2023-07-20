@@ -12,8 +12,6 @@ final class SnakesAndLaddersTests: XCTestCase {
     var game : Game? = nil
     
     
-    
-    
     func testStartGamePositionPlayer() {
         do {
             game = try Game(players: [Player(name: "Jugador 1", status: false)], dice: Dice(), board: Board.create(rows: 10, columns: 10, snakes: TestValues.arraySnakes, ladders: TestValues.arrayladders))
@@ -77,7 +75,7 @@ final class SnakesAndLaddersTests: XCTestCase {
     
     func testPositionTwoPlayers() {
         do {
-            game = try Game(players: TestValues.arrayOfPlayersNewInit, dice: Dice(), board: Board.create(rows: 10, columns: 10, snakes: TestValues.arraySnakes, ladders: TestValues.arrayladders))
+            game = try Game(players: TestValues.arrayOfPlayers, dice: Dice(), board: Board.create(rows: 10, columns: 10, snakes: TestValues.arraySnakes, ladders: TestValues.arrayladders))
             
             // when
             game?.startGame()
