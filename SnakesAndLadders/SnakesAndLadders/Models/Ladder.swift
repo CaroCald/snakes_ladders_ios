@@ -7,12 +7,9 @@
 
 import Foundation
 public class Ladder : Figure {
-    override var typeOfFigure: TypeOfFigure  {
-            get {
-                return TypeOfFigure.ladder
-            }
-            set {}
-        }
+    override var typeOfFigure: TypeOfFigure {
+        return TypeOfFigure.ladder
+    }
     
     override init(initPosition: Int, endPosition: Int) {
         let maxValue = max(initPosition, endPosition)

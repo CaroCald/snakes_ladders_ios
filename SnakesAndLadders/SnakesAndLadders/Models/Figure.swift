@@ -9,9 +9,11 @@ import Foundation
 public class Figure {
     var initPosition: Int
     var endPosition: Int
-    var typeOfFigure: TypeOfFigure = TypeOfFigure.normal
-   
-    init(initPosition: Int, endPosition: Int ) {
+    var typeOfFigure: TypeOfFigure {
+           return TypeOfFigure.normal
+    }
+    
+    init(initPosition: Int, endPosition: Int) {
         self.initPosition = initPosition
         self.endPosition = endPosition
     }

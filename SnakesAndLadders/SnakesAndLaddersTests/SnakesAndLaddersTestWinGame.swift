@@ -10,11 +10,14 @@ import XCTest
 
 final class SnakesAndLaddersTestWinGame: XCTestCase {
     var game : Game? = nil
+    func createGame() throws -> Game {
+       return try Game(players: [Player(name: "Jugador 1", status: false)], dice: Dice(), board: Board.create(rows: 10, columns: 10, snakes: TestValues.arraySnakes, ladders: TestValues.arrayladders))
+   }
     
     func testPlayerCanWinInSquare100() {
         
         do { // given
-            game = try Game(players: [Player(name: "Jugador 1", status: false)], dice: Dice(), board: Board.create(rows: 10, columns: 10, snakes: TestValues.arraySnakes, ladders: TestValues.arrayladders))
+            game = try createGame()
             
             // when
             game?.startGame()
@@ -42,7 +45,7 @@ final class SnakesAndLaddersTestWinGame: XCTestCase {
         // given
         
         do {
-            game = try Game(players: [Player(name: "Jugador 1", status: false)], dice: Dice(), board: Board.create(rows: 10, columns: 10, snakes: TestValues.arraySnakes, ladders: TestValues.arrayladders))
+            game = try createGame()
             
             // when
             game?.startGame()
@@ -58,6 +61,31 @@ final class SnakesAndLaddersTestWinGame: XCTestCase {
             
             // then
             XCTAssertEqual(status, false)
+        }catch CustomErrors.customError(let errorMessage){
+            print(errorMessage)
+        } catch {
+            print(error.localizedDescription)
+        }
+        
+    }
+    
+    func testPlayerNotWinTwoPlayers() {
+        // given
+        
+        do {
+            game = try createGame()
+            
+            game?.addPlayers(numberOfPlayers: 2)
+            game?.startGame()
+            
+            game!.moveOnBoard(spaces: game!.dice.rollDiceWithSetValue(defaultValue: 96), player: game!.players[0])
+            game!.moveOnBoard(spaces: game!.dice.rollDiceWithSetValue(defaultValue: 99), player: game!.players[1])
+            
+            let status = game!.players[0].status
+            let statusSecondPlayer = game!.players[1].status
+            // then
+            XCTAssertTrue(statusSecondPlayer)
+            XCTAssertFalse(status)
         }catch CustomErrors.customError(let errorMessage){
             print(errorMessage)
         } catch {

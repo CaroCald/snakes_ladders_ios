@@ -12,7 +12,7 @@ class ViewController: UIViewController {
     var game : Game? = nil
     var numberOfPlayers = 2
     var infoGame = ""
-
+    
     @IBOutlet weak var labelStatus: UILabel!
     @IBOutlet weak var labelMovements: UILabel!
     @IBOutlet weak var playerInput: UITextField!
@@ -20,7 +20,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
     }
-
+    
     @IBAction func startGamePressed(_ sender: UIButton) {
         
         do {
@@ -31,22 +31,23 @@ class ViewController: UIViewController {
             labelStatus.text = "Juego iniciado"
             labelMovements.text = ""
             
-        }catch CustomErrors.customError(let errorMessage){
-           print(errorMessage)
+        } catch CustomErrors.customError(let errorMessage){
+            print(errorMessage)
         } catch {
             print(error.localizedDescription)
         }
-       
+        
     }
     
     @IBAction func rollDicePressed(_ sender: UIButton) {
 
+        
         if game != nil {
             if !game!.statusGame() {
                 for player in game!.players {
                     game!.moveOnBoard(spaces: game!.dice.rollDice(), player: player)
                 }
-
+                
             } else {
                 let founded = game!.players.first(where: { player in
                     player.status == true

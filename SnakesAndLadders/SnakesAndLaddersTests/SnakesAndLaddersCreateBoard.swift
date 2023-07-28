@@ -10,84 +10,79 @@ import XCTest
 final class SnakesAndLaddersCreateBoard: XCTestCase {
 
     var game : Game? = nil
-    
+    let playerTest: Player = Player(name: "Jugador 1", status: false)
     func testCreateBoardWithNoRows() {
-        var  hasError : Bool = false
+        
         do { // given
-            game = try Game(players: [Player(name: "Jugador 1", status: false)], dice: Dice(), board: Board.create(rows: 0, columns: 10, snakes: TestValues.arraySnakesTest, ladders: TestValues.arrayladdersTest))
-            game?.startGame()
+            
+            game = try Game(players: [playerTest], dice: Dice(), board: Board.create(rows: 0, columns: 10, snakes: TestValues.arraySnakesTest, ladders: TestValues.arrayladdersTest))
+        
             
         } catch CustomErrors.customError(let errorMessage){
-            hasError = true
-            print(errorMessage)
+            XCTAssertEqual(errorMessage, Constants.errorBoard)
         } catch {
             print(error.localizedDescription)
         }
         
-        XCTAssertEqual(hasError, true)
+       
     }
     
     
     func testCreateBoardWithInvalidSnakes() {
-        var  hasError : Bool = false
         do { // given
-            game = try Game(players: [Player(name: "Jugador 1", status: false)], dice: Dice(), board: Board.create(rows: 10, columns: 10, snakes: TestValues.arraySnakesTestWithError, ladders: TestValues.arrayladdersTest))
-            game?.startGame()
+            game = try Game(players: [playerTest], dice: Dice(), board: Board.create(rows: 10, columns: 10, snakes: TestValues.arraySnakesTestWithError, ladders: TestValues.arrayladdersTest))
+         
             
         } catch CustomErrors.customError(let errorMessage){
-            hasError = true
-            print(errorMessage)
+           
+            XCTAssertEqual(errorMessage, Constants.errorSnakesInit)
         } catch {
             print(error.localizedDescription)
         }
         
-        XCTAssertEqual(hasError, true)
     }
     
     
     func testCreateBoardWithInvalidLadder() {
-        var  hasError : Bool = false
+       
         do { // given
-            game = try Game(players: [Player(name: "Jugador 1", status: false)], dice: Dice(), board: Board.create(rows: 10, columns: 10, snakes: TestValues.arraySnakesTest, ladders: TestValues.arrayladdersTestWithError))
-            game?.startGame()
+            game = try Game(players: [playerTest], dice: Dice(), board: Board.create(rows: 10, columns: 10, snakes: TestValues.arraySnakesTest, ladders: TestValues.arrayladdersTestWithError))
+          
             
         } catch CustomErrors.customError(let errorMessage){
-            hasError = true
-            print(errorMessage)
+            XCTAssertEqual(errorMessage, Constants.errorLadderInit)
         } catch {
             print(error.localizedDescription)
         }
         
-        XCTAssertEqual(hasError, true)
+     
     }
     func testCreateBoardWithLadderInit() {
-        var  hasError : Bool = false
+       
         do { // given
-            game = try Game(players: [Player(name: "Jugador 1", status: false)], dice: Dice(), board: Board.create(rows: 10, columns: 10, snakes: TestValues.arraySnakesTest, ladders: TestValues.arrayladdersTestWithErrorInit))
-            game?.startGame()
+            game = try Game(players: [playerTest], dice: Dice(), board: Board.create(rows: 10, columns: 10, snakes: TestValues.arraySnakesTest, ladders: TestValues.arrayladdersTestWithErrorInit))
+           
             
         } catch CustomErrors.customError(let errorMessage){
-            hasError = true
-            print(errorMessage)
+            XCTAssertEqual(errorMessage, Constants.errorLadderInitBoard)
         } catch {
             print(error.localizedDescription)
         }
-        
-        XCTAssertEqual(hasError, true)
+       
     }
     func testCreateBoardWithSnakeInit() {
-        var  hasError : Bool = false
+       
         do { // given
-            game = try Game(players: [Player(name: "Jugador 1", status: false)], dice: Dice(), board: Board.create(rows: 10, columns: 10, snakes: TestValues.arraySnakesTestWithErrorInit, ladders: TestValues.arrayladdersTest))
-            game?.startGame()
+            game = try Game(players: [playerTest], dice: Dice(), board: Board.create(rows: 10, columns: 10, snakes: TestValues.arraySnakesTestWithErrorInit, ladders: TestValues.arrayladdersTest))
+            
             
         } catch CustomErrors.customError(let errorMessage){
-            hasError = true
-            print(errorMessage)
+            XCTAssertEqual(errorMessage, Constants.errorSnakesInitBoard)
+
         } catch {
             print(error.localizedDescription)
         }
         
-        XCTAssertEqual(hasError, true)
+        
     }
 }

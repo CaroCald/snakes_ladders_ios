@@ -11,7 +11,7 @@ struct Game {
     var players : Array<Player>
     var dice : Dice
     var board : Board
-    var statusWining : Bool = false
+    var statusGameWinning : Bool = false
     var infoGame = ""
     var numberOfMovemments : Int = 0
     var neededMovemmentsToWin : Int = 0
@@ -23,7 +23,7 @@ struct Game {
     }
     
     mutating func startGame(){
-        statusWining = false
+        statusGameWinning = false
         neededMovemmentsToWin = 0
         for player in players {
             moveOnBoard(spaces: player.position, player:player)
@@ -39,15 +39,21 @@ struct Game {
         print(board.grid)
     }
     
+    mutating func printInfoGame(player:Player){
+        infoGame += "\(player.playerName()) se debe moverse \( player.numberOfMovements) espacios y se encuentra en la posicion \(player.position) y  cayo en una \(player.typeOfFigure)\n "
+        
+        print(infoGame)
+        infoGame = ""
+    }
+    
     func statusGame () -> Bool {
-        return statusWining
+        return statusGameWinning
         
     }
     
     mutating func validateLaddersAndSnakes(newPosition : Int, player:Player ){
         var initialPosition =  newPosition
         let positionToMove = board.whereToMove(position: newPosition, player: player )
-        board.grid[positionToMove] = 1
         player.position = positionToMove
         if initialPosition == 0 {
             initialPosition = 1
@@ -59,15 +65,15 @@ struct Game {
     
     mutating func moveOnBoard(spaces : Int, player:Player) {
         
-        if player.status == false && statusWining == false {
+        if player.status == false && statusGameWinning == false {
             numberOfMovemments = spaces
             player.numberOfMovements = spaces
             player.requiredMovements+=1
             let newPosition = spaces + player.position
             
             if newPosition >= (board.columns * board.rows) {
-                if newPosition == (board.columns * board.rows){
-                    statusWining = true
+                if newPosition == (board.columns * board.rows) {
+                    statusGameWinning = true
                     player.status = true
                     player.position = newPosition
                     player.typeOfFigure = TypeOfFigure.normal
@@ -87,10 +93,7 @@ struct Game {
                 
             }
             
-            infoGame += "\(player.playerName()) se debe moverse \( player.numberOfMovements) espacios y se encuentra en la posicion \(player.position) y  cayo en una \(player.typeOfFigure)\n "
-            
-            print(infoGame)
-            infoGame = ""
+            printInfoGame(player: player)
         }
         
         

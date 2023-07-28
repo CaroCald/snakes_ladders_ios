@@ -12,9 +12,13 @@ final class SnakesAndLaddersTests: XCTestCase {
     var game : Game? = nil
     
     
+     func createGame() throws -> Game {
+        return try Game(players: [Player(name: "Jugador 1", status: false)], dice: Dice(), board: Board.create(rows: 10, columns: 10, snakes: TestValues.arraySnakes, ladders: TestValues.arrayladders))
+    }
+    
     func testStartGamePositionPlayer() {
         do {
-            game = try Game(players: [Player(name: "Jugador 1", status: false)], dice: Dice(), board: Board.create(rows: 10, columns: 10, snakes: TestValues.arraySnakes, ladders: TestValues.arrayladders))
+            game = try createGame()
             game?.startGame()
             let playerToken = game?.players[0].token
             
@@ -30,7 +34,7 @@ final class SnakesAndLaddersTests: XCTestCase {
     func testPositionPlayerMovedTo4() {
         
         do {
-            game = try Game(players: [Player(name: "Jugador 1", status: false)], dice: Dice(), board: Board.create(rows: 10, columns: 10, snakes: TestValues.arraySnakes, ladders: TestValues.arrayladders))
+            game =  try createGame()
             
             // when
             game?.startGame()
@@ -53,7 +57,7 @@ final class SnakesAndLaddersTests: XCTestCase {
         // given
         
         do {
-            game = try Game(players: [Player(name: "Jugador 1", status: false)], dice: Dice(), board: Board.create(rows: 10, columns: 10, snakes: TestValues.arraySnakes, ladders: TestValues.arrayladders))
+            game =  try createGame()
             
             // when
             game?.startGame()

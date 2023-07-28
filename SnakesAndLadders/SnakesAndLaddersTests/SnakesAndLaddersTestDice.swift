@@ -10,12 +10,15 @@ import XCTest
 
 final class SnakesAndLaddersTestDice: XCTestCase {
     var game : Game? = nil
+    func createGame() throws -> Game {
+       return try Game(players: [Player(name: "Jugador 1", status: false)], dice: Dice(), board: Board.create(rows: 10, columns: 10, snakes: TestValues.arraySnakes, ladders: TestValues.arrayladders))
+   }
     
     func testValueDiceRoll() {
         // given
         
         do {
-            game = try Game(players: [Player(name: "Jugador 1", status: false)], dice: Dice(), board: Board.create(rows: 10, columns: 10, snakes: TestValues.arraySnakes, ladders: TestValues.arrayladders))
+            game = try createGame()
             
             // when
             game!.startGame()
@@ -63,7 +66,7 @@ final class SnakesAndLaddersTestDice: XCTestCase {
         // given
         
         do {
-            game = try Game(players: [Player(name: "Jugador 1", status: false)], dice: Dice(), board: Board.create(rows: 10, columns: 10,  snakes: TestValues.arraySnakes, ladders: TestValues.arrayladders))
+            game = try createGame()
             
             // when
             game!.startGame()

@@ -10,11 +10,14 @@ import XCTest
 
 final class SnakesAndLaddersTestMovements: XCTestCase {
     var game : Game? = nil
+    func createGame() throws -> Game {
+       return try Game(players: [Player(name: "Jugador 1", status: false)], dice: Dice(), board: Board.create(rows: 10, columns: 10, snakes: TestValues.arraySnakes, ladders: TestValues.arrayladders))
+   }
     
     
     func testMoveOnBoardToSnakeOfOnePlayer() {
         do {
-            game = try Game(players: [Player(name: "Jugador 1", status: false)], dice: Dice(), board: Board.create(rows: 10, columns: 10,  snakes: TestValues.arraySnakes, ladders: TestValues.arrayladders))
+            game = try createGame()
             
             // when
             game?.startGame()
@@ -37,19 +40,19 @@ final class SnakesAndLaddersTestMovements: XCTestCase {
     
     func testMoveOnBoardToLadderfOnePlayer() {
         do {
-            game = try Game(players: [Player(name: "Jugador 1", status: false)], dice: Dice(), board: Board.create(rows: 10, columns: 10,  snakes: TestValues.arraySnakesTest, ladders: TestValues.arrayladdersTest))
+            game = try createGame()
             
             // when
             game?.startGame()
             for player in game!.players {
-                game!.moveOnBoard(spaces: 91, player: player)
+                game!.moveOnBoard(spaces: 77, player: player)
             }
             
             
             let playerPosition = game?.players[0].position
             
             // then
-            XCTAssertEqual(playerPosition, 88)
+            XCTAssertEqual(playerPosition, 98)
         }catch CustomErrors.customError(let errorMessage){
             print(errorMessage)
         } catch {
@@ -62,7 +65,7 @@ final class SnakesAndLaddersTestMovements: XCTestCase {
     
     func testLaddersInitFinalPosition() {
         do {
-            game = try Game(players: [Player(name: "Jugador 1", status: false)], dice: Dice(), board: Board.create(rows: 10, columns: 10, snakes: TestValues.arraySnakes, ladders: TestValues.arrayladders))
+            game = try createGame()
             
             // when
             game?.startGame()
@@ -85,7 +88,7 @@ final class SnakesAndLaddersTestMovements: XCTestCase {
     
     func testSnakesInitFinalPosition() {
         do {
-            game = try Game(players: [Player(name: "Jugador 1", status: false)], dice: Dice(), board: Board.create(rows: 10, columns: 10, snakes: TestValues.arraySnakes, ladders: TestValues.arrayladders))
+            game = try createGame()
             
             // when
             game?.startGame()

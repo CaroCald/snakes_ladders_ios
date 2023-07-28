@@ -8,14 +8,10 @@
 import Foundation
 public class Snake : Figure {
     
-    override var typeOfFigure: TypeOfFigure  {
-            get {
-                return TypeOfFigure.snake
-            }
-            set {
-               
-            }
-        }
+    override var typeOfFigure: TypeOfFigure {
+        return TypeOfFigure.snake
+    }
+    
     override init(initPosition: Int, endPosition: Int) {
         let maxValue = max(initPosition, endPosition)
         let minValue = min(initPosition, endPosition)

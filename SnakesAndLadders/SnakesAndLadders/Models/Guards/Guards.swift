@@ -23,10 +23,10 @@ public func guardValidSnake(snakes : Array<Snake>, boardZise: Int ,alert: String
     
     for sn in snakes {
         guard sn.initPosition != boardZise else{
-            throw CustomErrors.customError(message: "No puede ir una serpiente en el fin del tablero")
+            throw CustomErrors.customError(message: Constants.errorSnakesInitBoard)
         }
         guard sn.initPosition != 0 else{
-            throw CustomErrors.customError(message: "No puede ir una serpiente en el inicio del tablero")
+            throw CustomErrors.customError(message: Constants.errorSnakesEndBoard)
         }
         guard sn.endPosition-1 < boardZise && sn.endPosition-1 > 0 else {
             throw CustomErrors.customError(message: alert)
@@ -44,10 +44,10 @@ public func guardValidLadder(ladder : Array<Ladder>, boardZise: Int ,alert: Stri
     
     for sn in ladder {
         guard sn.initPosition != boardZise else{
-            throw CustomErrors.customError(message: "No puede ir una escalera en el fin del tablero")
+            throw CustomErrors.customError(message: Constants.errorLadderEndBoard)
         }
         guard sn.initPosition != 0 else {
-            throw CustomErrors.customError(message: "No puede ir una escalera en el inicio del tablero")
+            throw CustomErrors.customError(message: Constants.errorLadderInitBoard)
         }
         guard sn.endPosition-1 < boardZise && sn.endPosition-1 > 0 else {
             throw CustomErrors.customError(message: alert)
