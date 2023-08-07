@@ -11,7 +11,7 @@ import XCTest
 final class SnakesAndLaddersTestMovements: XCTestCase {
     var game : Game? = nil
     func createGame() throws -> Game {
-       return try Game(players: [Player(name: "Jugador 1", status: false)], dice: Dice(), board: Board.create(rows: 10, columns: 10, snakes: TestValues.arraySnakes, ladders: TestValues.arrayladders))
+       return try Game(players: [Player(name: "Jugador 1", status: false)], diceProtocol: Dice(), board: Board.create(rows: 10, columns: 10, snakes: TestValues.arraySnakes, ladders: TestValues.arrayladders))
    }
     
     
@@ -21,10 +21,7 @@ final class SnakesAndLaddersTestMovements: XCTestCase {
             
             // when
             game?.startGame()
-            for player in game!.players {
-                game!.moveOnBoard(spaces: 91, player: player)
-            }
-            
+            game!.moveOnePlayerOnBoard(spaces: 91, player: game!.players[0])
             
             let playerPosition = game?.players[0].position
             
@@ -44,16 +41,14 @@ final class SnakesAndLaddersTestMovements: XCTestCase {
             
             // when
             game?.startGame()
-            for player in game!.players {
-                game!.moveOnBoard(spaces: 77, player: player)
-            }
+            game!.moveOnePlayerOnBoard(spaces: 77, player: game!.players[0])
             
             
             let playerPosition = game?.players[0].position
             
             // then
             XCTAssertEqual(playerPosition, 98)
-        }catch CustomErrors.customError(let errorMessage){
+        } catch CustomErrors.customError(let errorMessage){
             print(errorMessage)
         } catch {
             print(error.localizedDescription)
@@ -63,16 +58,16 @@ final class SnakesAndLaddersTestMovements: XCTestCase {
     
     
     
-    func testLaddersInitFinalPosition() {
+    func testLaddersFinalPosition() {
         do {
             game = try createGame()
             
             // when
             game?.startGame()
-            for player in game!.players {
-                game!.moveOnBoard(spaces: 1, player: player)
+           
+            game!.moveOnePlayerOnBoard(spaces: 1, player: game!.players[0])
                 
-            }
+           
             let playerPosition = game?.players[0].position
             XCTAssertEqual(playerPosition, 38)
             
@@ -86,16 +81,14 @@ final class SnakesAndLaddersTestMovements: XCTestCase {
         
     }
     
-    func testSnakesInitFinalPosition() {
+    func testSnakesFinalPosition() {
         do {
             game = try createGame()
             
             // when
             game?.startGame()
-            for player in game!.players {
-                game!.moveOnBoard(spaces: 15, player: player)
+            game!.moveOnePlayerOnBoard(spaces: 15, player: game!.players[0])
                 
-            }
             let playerPosition = game?.players[0].position
             XCTAssertEqual(playerPosition, 6)
             

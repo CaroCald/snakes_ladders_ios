@@ -33,36 +33,43 @@ struct TestValues {
     
     static let arrayladdersTest: Array<Ladder> = [
         Ladder(initPosition: 38, endPosition: 2),
-        ]
+    ]
     
     static let arraySnakesTest: Array<Snake>  = [
         Snake(initPosition: 16, endPosition: 6),
-        ]
+    ]
     
     static let arrayladdersTestWithError: Array<Ladder> = [
         Ladder(initPosition: 103, endPosition: 2),
-        ]
+    ]
     
     static let arraySnakesTestWithError: Array<Snake>  = [
         Snake(initPosition: -1, endPosition: 6),
-        ]
+    ]
     static let arrayladdersTestWithErrorInit: Array<Ladder>  = [
         Ladder(initPosition: 0, endPosition: 6),
-        ]
+    ]
     static let arraySnakesTestWithErrorInit: Array<Snake>  = [
         Snake(initPosition: 0, endPosition: 100),
-        ]
+    ]
     
-    static var arrayOfPlayers = [Player(name: "Jugador 1", status: false),
-                                 Player(name: "Jugador 2", status: false)]
+    static var playerOne = [Player(name: "Jugador 1", status: false),
+                            Player(name: "Jugador 2", status: false)]
+    
+    static var arrayOfTwoPlayersMockSteps = [
+        Player(name: "Jugador 1", status: false, listOfMovements: [2,1,5]),
+        Player(name: "Jugador 2", status: false, listOfMovements: [3,5])]
+    
+    static var arrayOfTwoPlayers = [Player(name: "Jugador 1", status: false),
+                                    Player(name: "Jugador 2", status: false)]
     
     static var arrayOfPlayersThree = [Player(name: "Jugador 1",  status: false),
                                       Player(name: "Jugador 2",  status: false),
                                       Player(name: "Jugador 3", status: false)]
     
     static var arrayOfPlayersFour = [Player(name: "Jugador 1",  status: false),
-                                      Player(name: "Jugador 2",  status: false),
-                                      Player(name: "Jugador 3", status: false),
-                                      Player(name: "Jugador 4", status: false)]
+                                     Player(name: "Jugador 2",  status: false),
+                                     Player(name: "Jugador 3", status: false),
+                                     Player(name: "Jugador 4", status: false)]
     
 }

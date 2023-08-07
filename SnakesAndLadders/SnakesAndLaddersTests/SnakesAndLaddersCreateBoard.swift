@@ -15,7 +15,7 @@ final class SnakesAndLaddersCreateBoard: XCTestCase {
         
         do { // given
             
-            game = try Game(players: [playerTest], dice: Dice(), board: Board.create(rows: 0, columns: 10, snakes: TestValues.arraySnakesTest, ladders: TestValues.arrayladdersTest))
+            game = try Game(players: [playerTest], diceProtocol: Dice(), board: Board.create(rows: 0, columns: 10, snakes: TestValues.arraySnakesTest, ladders: TestValues.arrayladdersTest))
         
             
         } catch CustomErrors.customError(let errorMessage){
@@ -30,7 +30,7 @@ final class SnakesAndLaddersCreateBoard: XCTestCase {
     
     func testCreateBoardWithInvalidSnakes() {
         do { // given
-            game = try Game(players: [playerTest], dice: Dice(), board: Board.create(rows: 10, columns: 10, snakes: TestValues.arraySnakesTestWithError, ladders: TestValues.arrayladdersTest))
+            game = try Game(players: [playerTest], diceProtocol: Dice(), board: Board.create(rows: 10, columns: 10, snakes: TestValues.arraySnakesTestWithError, ladders: TestValues.arrayladdersTest))
          
             
         } catch CustomErrors.customError(let errorMessage){
@@ -46,7 +46,7 @@ final class SnakesAndLaddersCreateBoard: XCTestCase {
     func testCreateBoardWithInvalidLadder() {
        
         do { // given
-            game = try Game(players: [playerTest], dice: Dice(), board: Board.create(rows: 10, columns: 10, snakes: TestValues.arraySnakesTest, ladders: TestValues.arrayladdersTestWithError))
+            game = try Game(players: [playerTest], diceProtocol: Dice(), board: Board.create(rows: 10, columns: 10, snakes: TestValues.arraySnakesTest, ladders: TestValues.arrayladdersTestWithError))
           
             
         } catch CustomErrors.customError(let errorMessage){
@@ -60,7 +60,7 @@ final class SnakesAndLaddersCreateBoard: XCTestCase {
     func testCreateBoardWithLadderInit() {
        
         do { // given
-            game = try Game(players: [playerTest], dice: Dice(), board: Board.create(rows: 10, columns: 10, snakes: TestValues.arraySnakesTest, ladders: TestValues.arrayladdersTestWithErrorInit))
+            game = try Game(players: [playerTest], diceProtocol: Dice(), board: Board.create(rows: 10, columns: 10, snakes: TestValues.arraySnakesTest, ladders: TestValues.arrayladdersTestWithErrorInit))
            
             
         } catch CustomErrors.customError(let errorMessage){
@@ -73,7 +73,7 @@ final class SnakesAndLaddersCreateBoard: XCTestCase {
     func testCreateBoardWithSnakeInit() {
        
         do { // given
-            game = try Game(players: [playerTest], dice: Dice(), board: Board.create(rows: 10, columns: 10, snakes: TestValues.arraySnakesTestWithErrorInit, ladders: TestValues.arrayladdersTest))
+            game = try Game(players: [playerTest], diceProtocol: Dice(), board: Board.create(rows: 10, columns: 10, snakes: TestValues.arraySnakesTestWithErrorInit, ladders: TestValues.arrayladdersTest))
             
             
         } catch CustomErrors.customError(let errorMessage){

@@ -17,4 +17,5 @@ public class Snake : Figure {
         let minValue = min(initPosition, endPosition)
         super.init(initPosition: maxValue, endPosition: minValue)
     }
+
 }

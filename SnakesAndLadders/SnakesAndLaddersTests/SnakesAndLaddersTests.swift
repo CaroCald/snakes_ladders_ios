@@ -12,38 +12,36 @@ final class SnakesAndLaddersTests: XCTestCase {
     var game : Game? = nil
     
     
-     func createGame() throws -> Game {
-        return try Game(players: [Player(name: "Jugador 1", status: false)], dice: Dice(), board: Board.create(rows: 10, columns: 10, snakes: TestValues.arraySnakes, ladders: TestValues.arrayladders))
+    func createGame(diceProtocol :  DiceProtocol) throws -> Game {
+        return try Game(players: [Player(name: "Jugador 1", status: false)], diceProtocol: diceProtocol, board: Board.create(rows: 10, columns: 10, snakes: TestValues.arraySnakes, ladders: TestValues.arrayladders))
     }
     
-    func testStartGamePositionPlayer() {
+    func testInitPositionPlayerWhenGameStart() {
         do {
-            game = try createGame()
+            game = try createGame(diceProtocol: Dice())
             game?.startGame()
-            let playerToken = game?.players[0].token
             
-            XCTAssertEqual(playerToken, 1)
+            XCTAssertEqual(game?.getSelectedPlayer(numberOfPlayer: 1).token, 1)
         }catch CustomErrors.customError(let errorMessage){
             print(errorMessage)
         } catch {
             print(error.localizedDescription)
         }
-    
+        
     }
     
     func testPositionPlayerMovedTo4() {
         
         do {
-            game =  try createGame()
+            game =  try createGame(diceProtocol: DiceMock(rolls: [3]))
             
-            // when
-            game?.startGame()
-            for player in game!.players {
-                game!.moveOnBoard(spaces: 3, player: player)
-            }
-            let playerPositionEnd = game?.players[0].token
-            // then
-            XCTAssertEqual(playerPositionEnd, 4)
+            game!.startGame()
+            XCTAssertEqual(game?.getSelectedPlayer(numberOfPlayer: 1).token, 1)
+            
+            game!.moveOnePlayerOnBoard(spaces: try game!.diceProtocol.rollDice(),
+                                       player: game!.getNextPlayer())
+            XCTAssertEqual(game?.getSelectedPlayer(numberOfPlayer: 1).token, 4)
+            
         }catch CustomErrors.customError(let errorMessage){
             print(errorMessage)
         } catch {
@@ -53,22 +51,26 @@ final class SnakesAndLaddersTests: XCTestCase {
         
     }
     
-    func testPositionPlayerMovedTo8() {
+    func testOnePlayersWithDiceRolls() {
         // given
         
         do {
-            game =  try createGame()
+            game =  try createGame(diceProtocol: DiceMock(rolls: [3,4]))
             
-            // when
             game?.startGame()
+            XCTAssertEqual(game?.getSelectedPlayer(numberOfPlayer: 1).token, 1)
             
-            for player in game!.players {
-                game!.moveOnBoard(spaces: 3, player: player)
-                game!.moveOnBoard(spaces: 4, player: player)
-            }
-            let playerPositionEnd = game?.players[0].token
-            // then
-            XCTAssertEqual(playerPositionEnd, 8)
+            //
+            game?.moveOnePlayerOnBoard(spaces: try game!.diceProtocol.rollDice(),
+                                       player: game!.getNextPlayer())
+            XCTAssertEqual(game?.getSelectedPlayer(numberOfPlayer: 1).token, 4)
+            
+            
+            //
+            game?.moveOnePlayerOnBoard(spaces: try game!.diceProtocol.rollDice(),
+                                       player: game!.getNextPlayer())
+            XCTAssertEqual(game?.getSelectedPlayer(numberOfPlayer: 1).token, 8)
+            
         }catch CustomErrors.customError(let errorMessage){
             print(errorMessage)
         } catch {
@@ -77,60 +79,49 @@ final class SnakesAndLaddersTests: XCTestCase {
         
     }
     
-    func testPositionTwoPlayers() {
+    func testTwoPlayersWithListOfMovementsStepByStep() {
         do {
-            game = try Game(players: TestValues.arrayOfPlayers, dice: Dice(), board: Board.create(rows: 10, columns: 10, snakes: TestValues.arraySnakes, ladders: TestValues.arrayladders))
             
-            // when
+            game = try Game(players: TestValues.arrayOfTwoPlayersMockSteps, diceProtocol:  Dice(), board: Board.create(rows: 10, columns: 10, snakes: TestValues.arraySnakes, ladders: TestValues.arrayladders))
+            
+            // inicio
             game?.startGame()
-            for player in game!.players {
-                game!.moveOnBoard(spaces: 3, player: player)
-            }
-            
-            let player1PositionEnd = game?.players[0].token
-            let player2PositionEnd = game?.players[1].token
+            XCTAssertEqual(game?.getSelectedPlayer(numberOfPlayer: 1).token, 1)
+            XCTAssertEqual(game?.getSelectedPlayer(numberOfPlayer: 2).token, 1)
             
             
-            XCTAssertEqual(player1PositionEnd, 4)
-            XCTAssertEqual(player2PositionEnd, 4)
+            //primer movimiento jugardor 1
+            game?.moveOnePlayerOnBoard(spaces: try game!.getNextPlayer().getStepByListOfMovements(),
+                                       player: game!.getNextPlayer())
+            XCTAssertEqual(game?.getSelectedPlayer(numberOfPlayer: 1).token, 3)
+            //primer movimiento jugardor 2
+            game?.moveOnePlayerOnBoard(spaces: try game!.getNextPlayer().getStepByListOfMovements(),
+                                       player: game!.getNextPlayer())
+            XCTAssertEqual(game?.getSelectedPlayer(numberOfPlayer: 2).token, 4)
             
             
+            //segundo movimiento jugardor 1
+            game?.moveOnePlayerOnBoard(spaces: try game!.getNextPlayer().getStepByListOfMovements(),
+                                       player: game!.getNextPlayer())
+            XCTAssertEqual(game?.getSelectedPlayer(numberOfPlayer: 1).token, 4)
+            //segundo movimiento jugardor 2
+            game?.moveOnePlayerOnBoard(spaces: try game!.getNextPlayer().getStepByListOfMovements(),
+                                       player: game!.getNextPlayer())
+            XCTAssertEqual(game?.getSelectedPlayer(numberOfPlayer: 2).token, 9)
             
-        }catch CustomErrors.customError(let errorMessage){
+            //tercer movimiento jugardor 1
+            game?.moveOnePlayerOnBoard(spaces: try game!.getNextPlayer().getStepByListOfMovements(),
+                                       player: game!.getNextPlayer())
+            XCTAssertEqual(game?.getSelectedPlayer(numberOfPlayer: 1).token, 9)
+            
+            
+        } catch CustomErrors.customError(let errorMessage){
             print(errorMessage)
         } catch {
             print(error.localizedDescription)
         }
         
     }
-    
-    func testPositionThreePlayers() {
-        do {
-            game = try Game(players: TestValues.arrayOfPlayersThree, dice: Dice(), board: Board.create(rows: 10, columns: 10, snakes: TestValues.arraySnakes, ladders: TestValues.arrayladders))
-            
-            game?.startGame()
-            for player in game!.players {
-                game!.moveOnBoard(spaces: 3, player: player)
-            }
-            
-            
-            let player1PositionEnd = game?.players[0].token
-            let player2PositionEnd = game?.players[1].token
-            let player3PositionEnd = game?.players[2].token
-            
-            XCTAssertEqual(player1PositionEnd, 4)
-            XCTAssertEqual(player2PositionEnd, 4)
-            XCTAssertEqual(player3PositionEnd, 4)
-            
-            
-        }catch CustomErrors.customError(let errorMessage){
-            print(errorMessage)
-        } catch {
-            print(error.localizedDescription)
-        }
-        
-    }
-    
     
     
 }

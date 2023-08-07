@@ -7,14 +7,16 @@
 
 import Foundation
 
-struct Dice {
-    
+class Dice : DiceProtocol  {
     let numberFaces = 6
     
-    func rollDice () -> Int{
+    private func generateRandom() -> Int {
         return Int.random(in: 1...numberFaces)
     }
-    func rollDiceWithSetValue (defaultValue: Int ) -> Int{
-        return defaultValue
+    
+    func rollDice () -> Int {
+        return generateRandom()
     }
+    
 }
+

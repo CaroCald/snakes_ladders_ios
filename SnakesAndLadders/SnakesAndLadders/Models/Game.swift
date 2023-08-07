@@ -7,40 +7,35 @@
 
 import Foundation
 
-struct Game {
+class Game {
+    
     var players : Array<Player>
-    var dice : Dice
+    var diceProtocol : DiceProtocol
     var board : Board
     var statusGameWinning : Bool = false
     var infoGame = ""
-    var numberOfMovemments : Int = 0
-    var neededMovemmentsToWin : Int = 0
+    var turn = 0
     
-    init(players: Array<Player>, dice: Dice, board: Board) {
+    init(players: Array<Player>, diceProtocol: DiceProtocol, board: Board) {
         self.players = players
-        self.dice = dice
+        self.diceProtocol = diceProtocol
         self.board = board
     }
     
-    mutating func startGame(){
+    func startGame(){
         statusGameWinning = false
-        neededMovemmentsToWin = 0
         for player in players {
-            moveOnBoard(spaces: player.position, player:player)
+            moveOnePlayerOnBoard(spaces: player.position+1, player:player)
         }
     }
     
-    mutating func addPlayers(numberOfPlayers : Int){
+    func addPlayers(numberOfPlayers : Int){
         for i in 1...numberOfPlayers {
             players.append(Player(name: "Jugador \(i)", status: false))
         }
     }
-    mutating func printBoard(){
-        print(board.grid)
-    }
-    
-    mutating func printInfoGame(player:Player){
-        infoGame += "\(player.playerName()) se debe moverse \( player.numberOfMovements) espacios y se encuentra en la posicion \(player.position) y  cayo en una \(player.typeOfFigure)\n "
+    func printInfoGame(player:Player){
+        infoGame += "\(player.playerName()) se debe moverse \( player.steps) espacios y se encuentra en la posición \(player.position) y cayo en una \(player.typeOfFigure)\n "
         
         print(infoGame)
         infoGame = ""
@@ -50,52 +45,72 @@ struct Game {
         return statusGameWinning
         
     }
-    
-    mutating func validateLaddersAndSnakes(newPosition : Int, player:Player ){
-        var initialPosition =  newPosition
-        let positionToMove = board.whereToMove(position: newPosition, player: player )
-        player.position = positionToMove
-        if initialPosition == 0 {
-            initialPosition = 1
-        }
-        player.token = initialPosition
         
+    func getSelectedPlayer(numberOfPlayer : Int) -> Player {
+        if(numberOfPlayer <= 0) {return players[0]}
+        return players[numberOfPlayer-1]
     }
     
-    
-    mutating func moveOnBoard(spaces : Int, player:Player) {
-        
-        if player.status == false && statusGameWinning == false {
-            numberOfMovemments = spaces
-            player.numberOfMovements = spaces
-            player.requiredMovements+=1
-            let newPosition = spaces + player.position
-            
-            if newPosition >= (board.columns * board.rows) {
-                if newPosition == (board.columns * board.rows) {
-                    statusGameWinning = true
-                    player.status = true
-                    player.position = newPosition
-                    player.typeOfFigure = TypeOfFigure.normal
-                }
-                
-            } else {
-                
-                if player.position != 0 {
-                    player.position = newPosition
-                    if newPosition <= board.columns * board.rows {
-                        validateLaddersAndSnakes(newPosition: newPosition, player: player)
-                    }
-                } else {
-                    player.position = numberOfMovemments
-                    validateLaddersAndSnakes(newPosition: newPosition, player: player)
-                }
-                
-            }
-            
-            printInfoGame(player: player)
+    func getNextTurn() -> Int {
+        if turn >= players.count {
+            turn = 0
         }
-        
-        
+        return turn
     }
+    
+    func getNextPlayer() -> Player{
+        return players[getNextTurn()]
+    }
+    
+    func getWinner() -> Player {
+        let foundedPlayer = players.first(where: { player in
+            player.status == true
+        })
+        return foundedPlayer!
+    }
+    
+    func playGame() throws {
+        while gameIsNotOver() {
+            moveOnePlayerOnBoard(spaces: try diceProtocol.rollDice(), player: getNextPlayer())
+        }
+    }
+    
+    func gameIsNotOver() -> Bool {
+        return statusGameWinning == false
+    }
+    
+    func giveAStep(_ spaces : Int, _ player:Player) -> Int {
+        return spaces + player.position
+    }
+    
+    private func validatePlayerWin(_ newPosition: Int, _ player: Player) {
+        if newPosition == (board.columns * board.rows) {
+            statusGameWinning = true
+            player.status = true
+            player.position = newPosition
+            player.typeOfFigure = TypeOfFigure.normal
+        }
+    }
+    
+    func validateLaddersAndSnakes(_ newPosition : Int, _ player:Player ){
+        player.position = board.whereToMove(position: newPosition, player: player )
+        player.token = newPosition
+    }
+    
+    func moveOnePlayerOnBoard(spaces : Int, player:Player) {
+        
+        player.steps = spaces
+        player.requiredMovements += 1
+        turn += 1
+        
+        let newPosition = giveAStep(spaces, player)
+        
+        if newPosition >= (board.columns * board.rows) {
+            validatePlayerWin(newPosition, player)
+        } else {
+            validateLaddersAndSnakes(newPosition, player)
+        }
+        printInfoGame(player: player)
+    }
+    
 }

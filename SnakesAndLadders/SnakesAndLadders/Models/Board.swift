@@ -84,9 +84,6 @@ struct Board {
         //
         validateFigure(position, ladders, &moveToPostion, player)
 
-        if position == 0 {
-            moveToPostion = 1
-        }
         return moveToPostion
     }
     

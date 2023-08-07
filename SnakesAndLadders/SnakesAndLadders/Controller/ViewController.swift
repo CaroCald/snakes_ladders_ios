@@ -25,7 +25,7 @@ class ViewController: UIViewController {
         
         do {
             numberOfPlayers = Int(playerInput.text ?? "2") ?? 2
-            game = try Game(players: [], dice: Dice(), board: Board.create(rows: 10, columns: 10, snakes: TestValues.arraySnakes, ladders: TestValues.arrayladders))
+            game = try Game(players: [], diceProtocol: Dice(), board: Board.create(rows: 10, columns: 10, snakes: TestValues.arraySnakes, ladders: TestValues.arrayladders))
             game!.addPlayers(numberOfPlayers: numberOfPlayers)
             game!.startGame()
             labelStatus.text = "Juego iniciado"
@@ -39,30 +39,53 @@ class ViewController: UIViewController {
         
     }
     
-    @IBAction func rollDicePressed(_ sender: UIButton) {
-
-        
-        if game != nil {
-            if !game!.statusGame() {
-                for player in game!.players {
-                    game!.moveOnBoard(spaces: game!.dice.rollDice(), player: player)
+    @IBAction func playGamePressed(_ sender: UIButton) {
+        if let gameExist = game {
+            do {
+                try gameExist.playGame()
+                if !gameExist.gameIsNotOver() {
+                    showWinningPlayerInfo(gameExist)
                 }
-                
-            } else {
-                let founded = game!.players.first(where: { player in
-                    player.status == true
-                })
-                let winGame = "El \(founded!.name) GANÓ!!!"
-                labelStatus.text = winGame
-                let moves = "necesito de \(founded!.requiredMovements) movimientos"
-                labelMovements.text = moves
-                print(winGame + moves)
+            } catch CustomErrors.customError(let errorMessage){
+                print(errorMessage)
+            } catch {
+                print(error.localizedDescription)
             }
             
         }
-        else {
-            labelStatus.text = "Empieza el juego para tirar el dado"
-        }
     }
+    
+    @IBAction func rollDicePressed(_ sender: UIButton) {
+        do {
+            if let gameExist = game {
+                if !gameExist.statusGame() {
+                    let turns = "Fue el turno del \(gameExist.getNextPlayer().name)"
+                    print(turns)
+                    labelMovements.text = turns
+                    game!.moveOnePlayerOnBoard(spaces: try gameExist.diceProtocol.rollDice(), player: gameExist.getNextPlayer())
+                } else {
+                    showWinningPlayerInfo(gameExist)
+                }
+            }
+            else {
+                labelStatus.text = "Empieza el juego para lanzar el dado"
+            }
+        } catch CustomErrors.customError(let errorMessage){
+            print(errorMessage)
+        } catch {
+            print(error.localizedDescription)
+        }
+        
+    }
+    
+    private func showWinningPlayerInfo(_ gameExist: Game) {
+        let playerWinner = gameExist.getWinner()
+        let winGame = "El \(playerWinner.name) GANÓ!!! "
+        labelStatus.text = winGame
+        let moves = "necesito de \(playerWinner.requiredMovements) movimientos"
+        labelMovements.text = moves
+        print(winGame + moves)
+    }
+    
 }
 
