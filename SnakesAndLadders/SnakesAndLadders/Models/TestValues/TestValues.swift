@@ -53,23 +53,23 @@ struct TestValues {
         Snake(initPosition: 0, endPosition: 100),
     ]
     
-    static var playerOne = [Player(name: "Jugador 1", status: false),
-                            Player(name: "Jugador 2", status: false)]
+    static var playerOne = [Player(name: "Jugador 1", hasPlayerWin: false),
+                            Player(name: "Jugador 2", hasPlayerWin: false)]
     
     static var arrayOfTwoPlayersMockSteps = [
-        Player(name: "Jugador 1", status: false, listOfMovements: [2,1,5]),
-        Player(name: "Jugador 2", status: false, listOfMovements: [3,5])]
+        Player(name: "Jugador 1", hasPlayerWin: false, listOfMovements: [2,1,5]),
+        Player(name: "Jugador 2", hasPlayerWin: false, listOfMovements: [3,5])]
     
-    static var arrayOfTwoPlayers = [Player(name: "Jugador 1", status: false),
-                                    Player(name: "Jugador 2", status: false)]
+    static var arrayOfTwoPlayers = [Player(name: "Jugador 1", hasPlayerWin: false),
+                                    Player(name: "Jugador 2", hasPlayerWin: false)]
     
-    static var arrayOfPlayersThree = [Player(name: "Jugador 1",  status: false),
-                                      Player(name: "Jugador 2",  status: false),
-                                      Player(name: "Jugador 3", status: false)]
+    static var arrayOfPlayersThree = [Player(name: "Jugador 1",  hasPlayerWin: false),
+                                      Player(name: "Jugador 2",  hasPlayerWin: false),
+                                      Player(name: "Jugador 3", hasPlayerWin: false)]
     
-    static var arrayOfPlayersFour = [Player(name: "Jugador 1",  status: false),
-                                     Player(name: "Jugador 2",  status: false),
-                                     Player(name: "Jugador 3", status: false),
-                                     Player(name: "Jugador 4", status: false)]
+    static var arrayOfPlayersFour = [Player(name: "Jugador 1",  hasPlayerWin: false),
+                                     Player(name: "Jugador 2",  hasPlayerWin: false),
+                                     Player(name: "Jugador 3", hasPlayerWin: false),
+                                     Player(name: "Jugador 4", hasPlayerWin: false)]
     
 }

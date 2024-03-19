@@ -12,7 +12,7 @@ class Game {
     var players : Array<Player>
     var diceProtocol : DiceProtocol
     var board : Board
-    var statusGameWinning : Bool = false
+    var hasGameFinishWithAWinner : Bool = false
     var infoGame = ""
     var turn = 0
     
@@ -21,18 +21,28 @@ class Game {
         self.diceProtocol = diceProtocol
         self.board = board
     }
+    init(numberOfPlayers: Int, diceProtocol: DiceProtocol, board: Board) {
+        self.players = []
+        self.diceProtocol = diceProtocol
+        self.board = board
+        
+        let players = addPlayers(numberOfPlayers: numberOfPlayers)
+        self.players = players
+    }
     
     func startGame(){
-        statusGameWinning = false
+        hasGameFinishWithAWinner = false
         for player in players {
             moveOnePlayerOnBoard(spaces: player.position+1, player:player)
         }
     }
     
-    func addPlayers(numberOfPlayers : Int){
+    func addPlayers(numberOfPlayers : Int) -> Array<Player>{
+        var addedPlayers : Array<Player> = []
         for i in 1...numberOfPlayers {
-            players.append(Player(name: "Jugador \(i)", status: false))
+            addedPlayers.append(Player(name: "Jugador \(i)", hasPlayerWin: false))
         }
+        return addedPlayers
     }
     func printInfoGame(player:Player){
         infoGame += "\(player.playerName()) se debe moverse \( player.steps) espacios y se encuentra en la posición \(player.position) y cayo en una \(player.typeOfFigure)\n "
@@ -42,7 +52,7 @@ class Game {
     }
     
     func statusGame () -> Bool {
-        return statusGameWinning
+        return hasGameFinishWithAWinner
         
     }
         
@@ -64,7 +74,7 @@ class Game {
     
     func getWinner() -> Player {
         let foundedPlayer = players.first(where: { player in
-            player.status == true
+            player.hasPlayerWin == true
         })
         return foundedPlayer!
     }
@@ -76,7 +86,7 @@ class Game {
     }
     
     func gameIsNotOver() -> Bool {
-        return statusGameWinning == false
+        return hasGameFinishWithAWinner == false
     }
     
     func giveAStep(_ spaces : Int, _ player:Player) -> Int {
@@ -85,8 +95,8 @@ class Game {
     
     private func validatePlayerWin(_ newPosition: Int, _ player: Player) {
         if newPosition == (board.columns * board.rows) {
-            statusGameWinning = true
-            player.status = true
+            hasGameFinishWithAWinner = true
+            player.hasPlayerWin = true
             player.position = newPosition
             player.typeOfFigure = TypeOfFigure.normal
         }

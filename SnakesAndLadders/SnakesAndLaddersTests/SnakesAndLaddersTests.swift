@@ -13,7 +13,7 @@ final class SnakesAndLaddersTests: XCTestCase {
     
     
     func createGame(diceProtocol :  DiceProtocol) throws -> Game {
-        return try Game(players: [Player(name: "Jugador 1", status: false)], diceProtocol: diceProtocol, board: Board.create(rows: 10, columns: 10, snakes: TestValues.arraySnakes, ladders: TestValues.arrayladders))
+        return try Game(players: [Player(name: "Jugador 1", hasPlayerWin: false)], diceProtocol: diceProtocol, board: Board.create(rows: 10, columns: 10, snakes: TestValues.arraySnakes, ladders: TestValues.arrayladders))
     }
     
     func testInitPositionPlayerWhenGameStart() {

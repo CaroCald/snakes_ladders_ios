@@ -11,7 +11,7 @@ import XCTest
 final class SnakesAndLaddersTestMovements: XCTestCase {
     var game : Game? = nil
     func createGame() throws -> Game {
-       return try Game(players: [Player(name: "Jugador 1", status: false)], diceProtocol: Dice(), board: Board.create(rows: 10, columns: 10, snakes: TestValues.arraySnakes, ladders: TestValues.arrayladders))
+       return try Game(players: [Player(name: "Jugador 1", hasPlayerWin: false)], diceProtocol: Dice(), board: Board.create(rows: 10, columns: 10, snakes: TestValues.arraySnakes, ladders: TestValues.arrayladders))
    }
     
     

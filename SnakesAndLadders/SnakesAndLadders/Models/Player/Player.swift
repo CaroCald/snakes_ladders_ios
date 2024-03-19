@@ -10,7 +10,7 @@ import Foundation
 class Player {
     var name : String = ""
     var position : Int = 0
-    var status : Bool
+    var hasPlayerWin : Bool
     var token: Int = 0
     var steps : Int = 0
     var requiredMovements : Int = 0
@@ -18,14 +18,14 @@ class Player {
     var typeOfFigure: TypeOfFigure = TypeOfFigure.normal
     var currentIndex : Int = -1
     
-    init(name: String, status: Bool) {
+    init(name: String, hasPlayerWin: Bool) {
         self.name = name
-        self.status = status
+        self.hasPlayerWin = hasPlayerWin
     }
     
-    init(name: String, status: Bool, listOfMovements : [Int]) {
+    init(name: String, hasPlayerWin: Bool, listOfMovements : [Int]) {
         self.name = name
-        self.status = status
+        self.hasPlayerWin = hasPlayerWin
         self.listOfMovements = listOfMovements
     }
     
@@ -40,4 +40,6 @@ class Player {
         }
         return listOfMovements[currentIndex]
     }
+    
+ 
 }

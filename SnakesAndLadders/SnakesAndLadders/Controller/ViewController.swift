@@ -25,8 +25,7 @@ class ViewController: UIViewController {
         
         do {
             numberOfPlayers = Int(playerInput.text ?? "2") ?? 2
-            game = try Game(players: [], diceProtocol: Dice(), board: Board.create(rows: 10, columns: 10, snakes: TestValues.arraySnakes, ladders: TestValues.arrayladders))
-            game!.addPlayers(numberOfPlayers: numberOfPlayers)
+            game = try Game(numberOfPlayers: numberOfPlayers, diceProtocol: Dice(), board: Board.create(rows: 10, columns: 10, snakes: TestValues.arraySnakes, ladders: TestValues.arrayladders))
             game!.startGame()
             labelStatus.text = "Juego iniciado"
             labelMovements.text = ""

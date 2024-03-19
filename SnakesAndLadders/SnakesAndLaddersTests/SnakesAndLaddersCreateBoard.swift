@@ -10,7 +10,7 @@ import XCTest
 final class SnakesAndLaddersCreateBoard: XCTestCase {
 
     var game : Game? = nil
-    let playerTest: Player = Player(name: "Jugador 1", status: false)
+    let playerTest: Player = Player(name: "Jugador 1", hasPlayerWin: false)
     func testCreateBoardWithNoRows() {
         
         do { // given
@@ -85,4 +85,29 @@ final class SnakesAndLaddersCreateBoard: XCTestCase {
         
         
     }
+    
+    
+    func testBoardSize() {
+       
+        do { // given
+            game = try Game(numberOfPlayers: 1, diceProtocol: Dice(), board: Board.create(rows: 10, columns: 10, snakes: TestValues.arraySnakes, ladders: TestValues.arrayladders))
+            let size = game?.board.grid.count
+            XCTAssertEqual(size, 100)
+
+            
+        } catch CustomErrors.customError(let errorMessage){
+            print(errorMessage)
+
+        } catch {
+            print(error.localizedDescription)
+        }
+        
+        
+    }
+    func testBoardWithBadSize() {
+        XCTAssertThrowsError(try Game(numberOfPlayers: 1, diceProtocol: Dice(), board: Board.create(rows: 10, columns: 9, snakes: TestValues.arraySnakes, ladders: TestValues.arrayladders)))
+
+        
+    }
+
 }

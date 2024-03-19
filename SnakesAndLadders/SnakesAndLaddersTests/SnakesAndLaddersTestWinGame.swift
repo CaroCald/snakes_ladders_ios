@@ -10,14 +10,14 @@ import XCTest
 
 final class SnakesAndLaddersTestWinGame: XCTestCase {
     var game : Game? = nil
-    func createGame() throws -> Game {
-       return try Game(players: [Player(name: "Jugador 1", status: false)], diceProtocol: Dice(), board: Board.create(rows: 10, columns: 10, snakes: TestValues.arraySnakes, ladders: TestValues.arrayladders))
+    func createGame(numberOfPlayers : Int) throws -> Game {
+       return try Game(numberOfPlayers: numberOfPlayers, diceProtocol: Dice(), board: Board.create(rows: 10, columns: 10, snakes: TestValues.arraySnakes, ladders: TestValues.arrayladders))
    }
     
     func testPlayerCanWinInSquare100() {
         
         do { // given
-            game = try createGame()
+            game = try createGame(numberOfPlayers: 1)
             
             // when
             game?.startGame()
@@ -28,7 +28,8 @@ final class SnakesAndLaddersTestWinGame: XCTestCase {
             game?.moveOnePlayerOnBoard(spaces: 3, player: game!.getNextPlayer())
             XCTAssertEqual(game!.getNextPlayer().position, 100)
             
-            let status = game?.players[0].status
+            //mover el status de jugador a game
+            let status = game?.players[0].hasPlayerWin
             // then
             XCTAssertEqual(status, true)
             
@@ -44,7 +45,7 @@ final class SnakesAndLaddersTestWinGame: XCTestCase {
         // given
         
         do {
-            game = try createGame()
+            game = try createGame(numberOfPlayers: 1)
             
             // when
             game?.startGame()
@@ -57,7 +58,7 @@ final class SnakesAndLaddersTestWinGame: XCTestCase {
             XCTAssertEqual(game?.getNextPlayer().position, 97)
             
             
-            let status = game?.players[0].status
+            let status = game?.players[0].hasPlayerWin
             
             // then
             XCTAssertEqual(status, false)
@@ -73,9 +74,8 @@ final class SnakesAndLaddersTestWinGame: XCTestCase {
         // given
         
         do {
-            game = try createGame()
+            game = try createGame(numberOfPlayers: 2)
             
-            game!.addPlayers(numberOfPlayers: 2)
             game!.startGame()
             XCTAssertEqual(game?.players[0].position, 1)
             XCTAssertEqual(game?.players[1].position, 1)
@@ -83,8 +83,8 @@ final class SnakesAndLaddersTestWinGame: XCTestCase {
             game!.moveOnePlayerOnBoard(spaces: 96, player: game!.getNextPlayer())
             game!.moveOnePlayerOnBoard(spaces: 99, player: game!.getNextPlayer())
             
-            let status = game!.players[0].status
-            let statusSecondPlayer = game!.players[1].status
+            let status = game!.players[0].hasPlayerWin
+            let statusSecondPlayer = game!.players[1].hasPlayerWin
             // then
             XCTAssertTrue(statusSecondPlayer)
             XCTAssertFalse(status)
@@ -95,6 +95,30 @@ final class SnakesAndLaddersTestWinGame: XCTestCase {
             print(error.localizedDescription)
         }
         
+    }
+    
+    func testDoesGameHasEndedWithAWinner() {
+        do {
+            game = try createGame(numberOfPlayers: 1)
+            
+            // when
+            game?.startGame()
+            XCTAssertEqual(game?.players[0].position, 1)
+            
+            game?.moveOnePlayerOnBoard(spaces: 96, player: game!.getNextPlayer())
+            XCTAssertEqual(game!.getNextPlayer().position, 97)
+            game?.moveOnePlayerOnBoard(spaces: 3, player: game!.getNextPlayer())
+            XCTAssertEqual(game!.getNextPlayer().position, 100)
+            
+            let hasGameFinishWithAWin = game?.hasGameFinishWithAWinner
+            
+            // then
+            XCTAssertEqual(hasGameFinishWithAWin, true)
+        }catch CustomErrors.customError(let errorMessage){
+            print(errorMessage)
+        } catch {
+            print(error.localizedDescription)
+        }
     }
     
 }

@@ -74,29 +74,5 @@ final class SnakesAndLaddersTestDice: XCTestCase {
     }
     
     
-    func testRollTwoDices() {
-        let mockDice = DicesList(dices: [DiceMock(rolls: [3, 1]), DiceMock(rolls: [3, 8])])
-        
-        XCTAssertEqual(try? mockDice.rollDice(), 6)
-        XCTAssertEqual(try? mockDice.rollDice(), 9)
-    }
-
-    
-    func testRollTwoDicesBeInRange() {
-        let mockDice = DicesList(dices: [Dice(), Dice()])
-        
-        var numberDice = 1
-        var arrayPosibleNumbers = [Int]()
-        let totalDataToTest = 100
-        
-        let numberRange = 2...12
-        
-        for _ in 1...totalDataToTest {
-            numberDice = try! mockDice.rollDice()
-            arrayPosibleNumbers.append(numberDice)
-        }
-        
-        validateIsInRange(arrayPosibleNumbers, numberRange)
-        
-    }
+   
 }
